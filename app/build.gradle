@@ -91,4 +91,7 @@ dependencies {
 
     //JWT Decode
     implementation 'com.auth0.android:jwtdecode:2.0.0'
+
+    //Support design
+    implementation 'com.android.support:design:30.0.0'
 }

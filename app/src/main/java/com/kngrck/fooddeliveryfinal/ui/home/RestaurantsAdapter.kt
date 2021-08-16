@@ -8,6 +8,7 @@ import com.kngrck.fooddeliveryfinal.model.entity.restaurant.Restaurant
 
 class RestaurantsAdapter : RecyclerView.Adapter<RestaurantsAdapter.RestaurantsViewHolder>() {
     private var restaurants = ArrayList<Restaurant>()
+    private var listener: IRestaurantOnClick? = null
 
     inner class RestaurantsViewHolder(val binding: ItemRestaurantBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -27,12 +28,24 @@ class RestaurantsAdapter : RecyclerView.Adapter<RestaurantsAdapter.RestaurantsVi
                 minimumTextView.text = restaurant.minimumFee.toString()
                 deliveryTimeTextView.text = restaurant.deliveryTime
             }
+            itemView.setOnClickListener {
+                listener?.onRestaurantClick(restaurant)
+
+            }
         }
     }
 
     fun setRestaurants(restaurants: ArrayList<Restaurant>) {
         this.restaurants = restaurants
         notifyDataSetChanged()
+    }
+
+    fun setListener(listener: IRestaurantOnClick) {
+        this.listener = listener
+    }
+
+    fun removeListeners() {
+        this.listener = null
     }
 
     override fun getItemCount(): Int = restaurants.size

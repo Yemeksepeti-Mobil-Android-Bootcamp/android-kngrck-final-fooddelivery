@@ -42,18 +42,19 @@ class CategoriesAdapter : RecyclerView.Adapter<CategoriesAdapter.CategoriesViewH
                     binding.categoryCardView.setCardBackgroundColor(Color.parseColor("#FAFAFA"))
                     categoryTextView.setTextColor(Color.BLACK)
                 }
+                itemView.setOnClickListener {
+                    listener?.onCategoryClick(category)
+                    if (selectedItemIndex != -1)
+                        categories[selectedItemIndex].isSelected = false
+
+                    selectedItemIndex = adapterPosition
+                    notifyDataSetChanged()
+                }
             }
 
 
 
-            holder.itemView.setOnClickListener {
-                listener?.onClick(category)
-                if (selectedItemIndex != -1)
-                    categories[selectedItemIndex].isSelected = false
 
-                selectedItemIndex = adapterPosition
-                notifyDataSetChanged()
-            }
         }
 
 
