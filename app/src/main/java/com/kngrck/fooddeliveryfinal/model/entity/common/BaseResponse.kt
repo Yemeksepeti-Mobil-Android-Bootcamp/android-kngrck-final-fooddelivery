@@ -2,7 +2,7 @@ package com.kngrck.fooddeliveryfinal.model.entity.common
 
 import com.google.gson.annotations.SerializedName
 
-data class ErrorResponse(
+data class BaseResponse(
     @SerializedName("message")
     val message: String,
     @SerializedName("success")
