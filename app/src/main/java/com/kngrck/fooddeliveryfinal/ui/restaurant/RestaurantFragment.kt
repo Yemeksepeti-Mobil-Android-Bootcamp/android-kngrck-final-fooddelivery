@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kngrck.fooddeliveryfinal.R
 import com.kngrck.fooddeliveryfinal.databinding.FragmentRestaurantBinding
@@ -48,7 +49,7 @@ class RestaurantFragment : Fragment() ,IMealOnClick{
     }
 
     override fun onClick(meal: Meal) {
-        Log.v("","")
+        findNavController().navigate(R.id.action_restaurantFragment_to_mealFragment)
     }
 
     override fun onDestroy() {

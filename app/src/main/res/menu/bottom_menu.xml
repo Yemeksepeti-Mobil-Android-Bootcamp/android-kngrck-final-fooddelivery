@@ -4,4 +4,8 @@
         android:id="@+id/homeFragment"
         android:icon="@drawable/ic_home"
         android:title=""/>
+    <item
+        android:id="@+id/orderFragment"
+        android:icon="@drawable/ic_home"
+        android:title=""/>
 </menu>

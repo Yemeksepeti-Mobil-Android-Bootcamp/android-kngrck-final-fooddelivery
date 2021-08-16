@@ -26,11 +26,16 @@ class MealsAdapter : RecyclerView.Adapter<MealsAdapter.MealsViewHolder>() {
 
                 var ingredientsText = ""
                 for (i in 0 until 3) {
-                    ingredientsText += meal.ingredients[i]
+                    ingredientsText += meal.ingredients[i].name
                 }
                 mealNameTextView.text = meal.name
                 mealIngredientsTextView.text = ingredientsText
                 mealPrice.text = String.format("%.2f", meal.price) + " TL"
+            }
+
+            itemView.setOnClickListener {
+                listener?.onClick(meal)
+
             }
 
         }

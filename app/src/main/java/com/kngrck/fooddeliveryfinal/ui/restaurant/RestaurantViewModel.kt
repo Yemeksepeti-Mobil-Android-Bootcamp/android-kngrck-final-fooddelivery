@@ -2,6 +2,7 @@ package com.kngrck.fooddeliveryfinal.ui.restaurant
 
 import androidx.lifecycle.ViewModel
 import com.kngrck.fooddeliveryfinal.model.ApiRepository
+import com.kngrck.fooddeliveryfinal.model.entity.meal.Ingredient
 import com.kngrck.fooddeliveryfinal.model.entity.meal.Meal
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.Restaurant
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,10 +17,11 @@ class RestaurantViewModel @Inject constructor(
         val meals = ArrayList<Meal>()
         for (i in 0 until 10){
             meals.add(Meal("name $i","details $i", 0, i.toDouble(), arrayListOf(
-                "ingredient 1 $i",
-                "ingredient 2 $i",
-                "ingredient 3 $i",
-                "ingredient 4$i",
+                Ingredient("ingredient 1 $i"),
+                Ingredient("ingredient 2 $i"),
+                Ingredient("ingredient 3 $i"),
+                Ingredient("ingredient 4 $i"),
+
             )))
         }
 

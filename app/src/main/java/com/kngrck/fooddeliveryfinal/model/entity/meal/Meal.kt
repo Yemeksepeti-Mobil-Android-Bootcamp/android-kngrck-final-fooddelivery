@@ -5,5 +5,5 @@ data class Meal(
     val details: String,
     val count: Int = 0,
     val price: Double,
-    val ingredients: ArrayList<String>
+    val ingredients: ArrayList<Ingredient>
 )
