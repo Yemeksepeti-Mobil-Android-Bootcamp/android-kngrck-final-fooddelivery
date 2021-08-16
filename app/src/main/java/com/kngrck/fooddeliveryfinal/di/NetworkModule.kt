@@ -64,7 +64,7 @@ class NetworkModule {
     //TODO provide base url
     @Provides
     fun provideEndPoint(): EndPoint {
-        return EndPoint("BASE URL")
+        return EndPoint("https://dist-learn.herokuapp.com")
     }
 
 }
