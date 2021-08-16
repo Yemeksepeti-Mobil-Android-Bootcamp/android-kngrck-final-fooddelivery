@@ -25,8 +25,9 @@ class RestaurantsAdapter : RecyclerView.Adapter<RestaurantsAdapter.RestaurantsVi
             with(binding) {
                 restaurantNameTextView.text = restaurant.name
                 ratingTextView.text = restaurant.rating.toString()
-                minimumTextView.text = restaurant.minimumFee.toString()
+                minimumTextView.text = String.format("%.2f", restaurant.minimumFee) + " TL"
                 deliveryTimeTextView.text = restaurant.deliveryTime
+
             }
             itemView.setOnClickListener {
                 listener?.onRestaurantClick(restaurant)
