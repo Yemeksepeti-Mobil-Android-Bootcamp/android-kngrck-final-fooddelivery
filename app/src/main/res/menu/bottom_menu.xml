@@ -5,7 +5,13 @@
         android:icon="@drawable/ic_home"
         android:title=""/>
     <item
+        android:id="@+id/cartFragment"
+        android:icon="@drawable/ic_cart"
+        android:title=""/>
+    <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/ic_user"
         android:title=""/>
+
+
 </menu>
