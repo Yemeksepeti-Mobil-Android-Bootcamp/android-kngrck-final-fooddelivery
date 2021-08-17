@@ -9,6 +9,6 @@ data class Order(
     val restaurantName: String,
     val mealName: String,
     val mealPrice: Double,
-    val mealCount: Int,
+    val count: Int,
     val mealImage: Int = R.drawable.ic_pizza,
 )

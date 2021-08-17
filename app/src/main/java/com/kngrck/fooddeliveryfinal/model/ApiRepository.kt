@@ -23,8 +23,8 @@ class ApiRepository @Inject constructor(
     fun getAllRestaurants(): LiveData<Resource<RestaurantListResponse>> =
         performNetworkOperation { remoteDataSource.getAllRestaurants() }
 
-    fun getRestaurantsByType(type: String): LiveData<Resource<RestaurantListResponse>> =
-        performNetworkOperation { remoteDataSource.getRestaurantsByType(type) }
+    fun getRestaurantsByCategory(category: String): LiveData<Resource<RestaurantListResponse>> =
+        performNetworkOperation { remoteDataSource.getRestaurantsByCategory(category) }
 
     fun getRestaurantById(id: String): LiveData<Resource<RestaurantResponse>> =
         performNetworkOperation { remoteDataSource.getRestaurantById(id) }
@@ -33,15 +33,15 @@ class ApiRepository @Inject constructor(
         performNetworkOperation { remoteDataSource.addRestaurant(restaurant) }
 
     //MEAL
-    fun getMealById(id: String): LiveData<Resource<MealResponse>> =
-        performNetworkOperation { remoteDataSource.getMealById(id) }
+    fun getMealById(id: String,restaurantId: String): LiveData<Resource<MealResponse>> =
+        performNetworkOperation { remoteDataSource.getMealById(id,restaurantId) }
 
     fun addMeal(restaurantId: String, meal: Meal): LiveData<Resource<BaseResponse>> =
         performNetworkOperation { remoteDataSource.addMeal(restaurantId, meal) }
 
     //ORDER
-    fun getAllOrdersOfUser(): LiveData<Resource<OrderListResponse>> =
-        performNetworkOperation { remoteDataSource.getAllOrdersOfUser() }
+    fun getLastOrdersOfUser(): LiveData<Resource<OrderListResponse>> =
+        performNetworkOperation { remoteDataSource.getLastOrdersOfUser() }
 
     fun addOrder(order: Order): LiveData<Resource<BaseResponse>> =
         performNetworkOperation { remoteDataSource.addOrder(order) }

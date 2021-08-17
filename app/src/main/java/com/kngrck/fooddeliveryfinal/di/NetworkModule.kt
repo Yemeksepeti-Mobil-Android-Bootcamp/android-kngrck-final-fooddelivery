@@ -1,10 +1,10 @@
 package com.kngrck.fooddeliveryfinal.di
 
 import androidx.viewbinding.BuildConfig
-import com.kngrck.fooddeliveryfinal.model.local.LocalDataSource
 import com.kngrck.fooddeliveryfinal.model.remote.APIService
 import com.kngrck.fooddeliveryfinal.model.remote.RemoteDataSource
 import com.google.gson.Gson
+import com.kngrck.fooddeliveryfinal.model.local.LocalDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,13 +38,16 @@ class NetworkModule {
     }
 
     @Provides
-    fun provideOkHttpClient(): OkHttpClient {
-        val builder = OkHttpClient.Builder()
-        builder.interceptors().add(HttpLoggingInterceptor().apply {
-            level =
-                if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
-        })
-        return builder.build()
+    fun provideOkHttpClient(
+        localDataSource: LocalDataSource
+    ): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor {
+                val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkthYW4gR2lyY2VrIiwiaWQiOiI1bmRnQW9PQ2xqTHNiT2VMWWI2MyIsImlhdCI6MTUxNjIzOTAyMn0.88mnpJiPuU2N1kAD6ZtPqxGxifJPiK9l7ZMeCLxbqKk"
+                val request = it.request().newBuilder().addHeader("Authorization", token).build()
+                it.proceed(request)
+            }
+            .build()
     }
 
 
@@ -61,18 +64,11 @@ class NetworkModule {
     }
 
 
-    //TODO provide base url
     @Provides
     fun provideEndPoint(): EndPoint {
-        return EndPoint("https://dist-learn.herokuapp.com")
+        return EndPoint("https://us-central1-fooddeliverybootcamp.cloudfunctions.net/widgets/")
     }
 
 }
 
 data class EndPoint(val url: String)
-
-
-
-
-
-

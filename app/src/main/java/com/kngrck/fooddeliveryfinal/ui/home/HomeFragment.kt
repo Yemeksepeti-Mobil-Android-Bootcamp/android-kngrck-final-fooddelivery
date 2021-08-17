@@ -5,14 +5,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.kngrck.fooddeliveryfinal.R
 import com.kngrck.fooddeliveryfinal.databinding.FragmentHomeBinding
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.Restaurant
 import com.kngrck.fooddeliveryfinal.model.helper.Category
+import com.kngrck.fooddeliveryfinal.utils.Resource
+import com.kngrck.fooddeliveryfinal.utils.gone
+import com.kngrck.fooddeliveryfinal.utils.show
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,32 +40,125 @@ class HomeFragment : Fragment(), IRestaurantOnClick, ICategoryOnClick {
 
     private fun initViews() {
         val categories = viewModel.getCategories()
-        val restaurants = viewModel.getAllRestaurants()
-
         categoriesAdapter.setCategories(categories)
-        restaurantsAdapter.setRestaurants(restaurants)
-
         categoriesAdapter.setListener(this)
-        restaurantsAdapter.setListener(this)
 
         with(_binding) {
             categoriesRecyclerView.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            restaurantsRecyclerView.layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-
             categoriesRecyclerView.adapter = categoriesAdapter
-            restaurantsRecyclerView.adapter = restaurantsAdapter
+        }
+        viewModel.getAllRestaurants().observe(viewLifecycleOwner, {
+            when (it.status) {
+                Resource.Status.LOADING -> {
+                    _binding.restaurantsRecyclerView.gone()
+                    _binding.progressBar.show()
+                }
+                Resource.Status.SUCCESS -> {
+
+                    _binding.restaurantsRecyclerView.show()
+                    _binding.progressBar.gone()
+                    val restaurants = it.data?.data!!
+                    restaurantsAdapter.setRestaurants(restaurants)
+                    restaurantsAdapter.setListener(this)
+
+                    _binding.searchView.setOnQueryTextListener(object : OnQueryTextListener {
+                        override fun onQueryTextSubmit(query: String?): Boolean {
+                            val filterList = viewModel.searchRestaurant(query, restaurants)
+                            restaurantsAdapter.setRestaurants(filterList)
+                            return true
+                        }
+
+                        override fun onQueryTextChange(newText: String?): Boolean {
+                            val filterList = viewModel.searchRestaurant(newText, restaurants)
+                            restaurantsAdapter.setRestaurants(filterList)
+                            return true
+                        }
+
+                    })
+
+                    with(_binding) {
+                        restaurantsRecyclerView.layoutManager =
+                            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                        restaurantsRecyclerView.adapter = restaurantsAdapter
+                    }
+                }
+                Resource.Status.ERROR -> {
+
+                    _binding.restaurantsRecyclerView.show()
+                    _binding.progressBar.gone()
+                }
+            }
+        })
+
+
+    }
+
+
+    override fun onCategoryClick(category: Category) {
+
+        restaurantsAdapter.removeListeners()
+
+        if (category.text != "All") {
+            viewModel.getRestaurantsByCategory(category.text).observe(viewLifecycleOwner, {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        _binding.restaurantsRecyclerView.gone()
+                        _binding.progressBar.show()
+                    }
+                    Resource.Status.SUCCESS -> {
+
+                        _binding.restaurantsRecyclerView.show()
+                        _binding.progressBar.gone()
+                        val restaurants = it.data?.data!!
+                        restaurantsAdapter.setRestaurants(restaurants)
+                        restaurantsAdapter.setListener(this)
+
+                        _binding.restaurantsRecyclerView.adapter = restaurantsAdapter
+
+                    }
+                    Resource.Status.ERROR -> {
+
+                        _binding.restaurantsRecyclerView.show()
+                        _binding.progressBar.gone()
+                    }
+                }
+            })
+        } else {
+            viewModel.getAllRestaurants().observe(viewLifecycleOwner, {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        _binding.restaurantsRecyclerView.gone()
+                        _binding.progressBar.show()
+                    }
+                    Resource.Status.SUCCESS -> {
+
+                        _binding.restaurantsRecyclerView.show()
+                        _binding.progressBar.gone()
+                        val restaurants = it.data?.data!!
+                        restaurantsAdapter.setRestaurants(restaurants)
+                        restaurantsAdapter.setListener(this)
+
+                        _binding.restaurantsRecyclerView.adapter = restaurantsAdapter
+
+                    }
+                    Resource.Status.ERROR -> {
+
+                        _binding.restaurantsRecyclerView.show()
+                        _binding.progressBar.gone()
+                        Log.v("Home", "$it.message")
+                    }
+                }
+            })
         }
 
     }
 
-    override fun onCategoryClick(category: Category) {
-        Log.v("Home", "category clicked")
-    }
-
     override fun onRestaurantClick(restaurant: Restaurant) {
-        findNavController().navigate(R.id.action_homeFragment_to_restaurantFragment)
+        val action = HomeFragmentDirections.actionHomeFragmentToRestaurantFragment(
+            restaurant.id
+        )
+        findNavController().navigate(action)
     }
 
     override fun onDestroy() {

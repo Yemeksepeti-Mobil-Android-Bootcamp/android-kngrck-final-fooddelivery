@@ -9,7 +9,7 @@ import com.kngrck.fooddeliveryfinal.model.entity.meal.Meal
 import com.kngrck.fooddeliveryfinal.ui.restaurant.IMealOnClick
 
 class IngredientsAdapter : RecyclerView.Adapter<IngredientsAdapter.IngredientsViewHolder>() {
-    private var ingredients = ArrayList<Ingredient>()
+    private var ingredients = ArrayList<String>()
 
     inner class IngredientsViewHolder(val binding: ItemIngredientBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -24,14 +24,13 @@ class IngredientsAdapter : RecyclerView.Adapter<IngredientsAdapter.IngredientsVi
         val ingredient = ingredients[position]
         with(holder) {
             with(binding) {
-                ingredientCheckBox.text = ingredient.name
-                ingredientCheckBox.isChecked = ingredient.isChecked
+                ingredientCheckBox.text = ingredient
             }
 
         }
     }
 
-    fun setIngredients(ingredients: ArrayList<Ingredient>) {
+    fun setIngredients(ingredients: ArrayList<String>) {
         this.ingredients = ingredients
         notifyDataSetChanged()
     }

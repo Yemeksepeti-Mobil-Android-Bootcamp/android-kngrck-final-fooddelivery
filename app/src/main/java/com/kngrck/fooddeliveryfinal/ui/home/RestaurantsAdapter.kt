@@ -3,6 +3,9 @@ package com.kngrck.fooddeliveryfinal.ui.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.kngrck.fooddeliveryfinal.R
 import com.kngrck.fooddeliveryfinal.databinding.ItemRestaurantBinding
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.Restaurant
 
@@ -27,7 +30,10 @@ class RestaurantsAdapter : RecyclerView.Adapter<RestaurantsAdapter.RestaurantsVi
                 ratingTextView.text = restaurant.rating.toString()
                 minimumTextView.text = String.format("%.2f", restaurant.minimumFee) + " TL"
                 deliveryTimeTextView.text = restaurant.deliveryTime
-
+                val options = RequestOptions().placeholder(R.drawable.ic_burger)
+                Glide.with(restaurantImageView.context)
+                    .applyDefaultRequestOptions(options)
+                    .load(restaurant.imageUrl).into(restaurantImageView)
             }
             itemView.setOnClickListener {
                 listener?.onRestaurantClick(restaurant)

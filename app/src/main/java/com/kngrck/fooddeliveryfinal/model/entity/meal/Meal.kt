@@ -1,9 +1,10 @@
 package com.kngrck.fooddeliveryfinal.model.entity.meal
 
 data class Meal(
+    val id: String,
     val name: String,
     val details: String,
-    val count: Int = 0,
+    val imageUrl: String,
     val price: Double,
-    val ingredients: ArrayList<Ingredient>
+    val ingredients: ArrayList<String>
 )
