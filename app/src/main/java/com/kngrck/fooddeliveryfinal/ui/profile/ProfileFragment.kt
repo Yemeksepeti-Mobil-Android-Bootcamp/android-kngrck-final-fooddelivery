@@ -1,5 +1,6 @@
 package com.kngrck.fooddeliveryfinal.ui.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +13,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.kngrck.fooddeliveryfinal.R
 import com.kngrck.fooddeliveryfinal.databinding.FragmentProfileBinding
+import com.kngrck.fooddeliveryfinal.ui.StartActivity
+import com.kngrck.fooddeliveryfinal.utils.FirebaseAuthManager
 import com.kngrck.fooddeliveryfinal.utils.Resource
 import com.kngrck.fooddeliveryfinal.utils.gone
 import com.kngrck.fooddeliveryfinal.utils.show
@@ -37,6 +40,13 @@ class ProfileFragment : Fragment() {
     }
 
     private fun initViews() {
+
+        _binding.settingsButton.setOnClickListener{
+            FirebaseAuthManager.signOut()
+            val intent = Intent(context, StartActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
+        }
          viewModel.getLastOrdersOfUser().observe(viewLifecycleOwner,{
             when (it.status) {
                 Resource.Status.LOADING -> {
@@ -47,6 +57,7 @@ class ProfileFragment : Fragment() {
 //                    _binding.mainLayout.show()
 //                    _binding.progressBar.gone()
                     val orders = it.data?.data!!
+                    Log.v("Profile",orders.toString())
                     adapter.setOrders(orders)
 
                     with(_binding) {
@@ -58,7 +69,7 @@ class ProfileFragment : Fragment() {
                 Resource.Status.ERROR -> {
 //                    _binding.mainLayout.show()
 //                    _binding.progressBar.gone()
-                    Log.v("Home", "Error")
+                    Log.v("Profile", "error $it.message")
                 }
             }
         })

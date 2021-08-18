@@ -25,8 +25,7 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.OrdersViewHolder>() {
                 mealNameTextView.text = order.mealName
                 restaurantNameTextView.text = order.restaurantName
                 mealPriceTextView.text = String.format("%.2f", order.mealPrice) + " TL"
-                mealCountTextView.text = order.mealCount.toString() + " ad."
-                mealImageView.setImageResource(order.mealImage)
+                mealCountTextView.text = order.count.toString() + " ad."
             }
 
         }

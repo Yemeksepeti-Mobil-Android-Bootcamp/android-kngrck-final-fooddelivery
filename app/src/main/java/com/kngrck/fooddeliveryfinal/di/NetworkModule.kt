@@ -1,16 +1,15 @@
 package com.kngrck.fooddeliveryfinal.di
 
-import androidx.viewbinding.BuildConfig
-import com.kngrck.fooddeliveryfinal.model.remote.APIService
-import com.kngrck.fooddeliveryfinal.model.remote.RemoteDataSource
+import android.util.Log
 import com.google.gson.Gson
 import com.kngrck.fooddeliveryfinal.model.local.LocalDataSource
+import com.kngrck.fooddeliveryfinal.model.remote.APIService
+import com.kngrck.fooddeliveryfinal.model.remote.RemoteDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityRetainedComponent
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -41,11 +40,14 @@ class NetworkModule {
     fun provideOkHttpClient(
         localDataSource: LocalDataSource
     ): OkHttpClient {
+
         return OkHttpClient.Builder()
-            .addInterceptor {
-                val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkthYW4gR2lyY2VrIiwiaWQiOiI1bmRnQW9PQ2xqTHNiT2VMWWI2MyIsImlhdCI6MTUxNjIzOTAyMn0.88mnpJiPuU2N1kAD6ZtPqxGxifJPiK9l7ZMeCLxbqKk"
-                val request = it.request().newBuilder().addHeader("Authorization", token).build()
-                it.proceed(request)
+            .addInterceptor { interceptor ->
+                val token = localDataSource.getToken()
+                Log.v("Network","token $token")
+                val request =
+                    interceptor.request().newBuilder().addHeader("Authorization", token!!).build()
+                interceptor.proceed(request)
             }
             .build()
     }
@@ -69,6 +71,9 @@ class NetworkModule {
         return EndPoint("https://us-central1-fooddeliverybootcamp.cloudfunctions.net/widgets/")
     }
 
+
 }
 
 data class EndPoint(val url: String)
+
+data class Token(val token: String)

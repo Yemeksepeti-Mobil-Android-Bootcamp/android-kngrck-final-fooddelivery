@@ -41,7 +41,7 @@ interface APIService {
     ): Response<BaseResponse>
 
     //ORDER
-    @GET("lastorders")
+    @GET("orders")
     suspend fun getLastOrdersOfUser(): Response<OrderListResponse>
 
     @POST("order")

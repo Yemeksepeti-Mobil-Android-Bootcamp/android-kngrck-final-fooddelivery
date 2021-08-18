@@ -14,4 +14,8 @@ class ProfileViewModel @Inject constructor(
 ) : ViewModel() {
     fun getLastOrdersOfUser(): LiveData<Resource<OrderListResponse>> =
         apiRepository.getLastOrdersOfUser()
+
+    fun logOut(){
+        apiRepository.removeToken()
+    }
 }

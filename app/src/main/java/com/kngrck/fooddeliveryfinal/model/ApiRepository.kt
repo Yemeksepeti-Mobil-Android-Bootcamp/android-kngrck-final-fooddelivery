@@ -45,4 +45,16 @@ class ApiRepository @Inject constructor(
 
     fun addOrder(order: Order): LiveData<Resource<BaseResponse>> =
         performNetworkOperation { remoteDataSource.addOrder(order) }
+
+    //Token
+    fun getToken(): String? =
+        localDataSource.getToken()
+
+    fun saveToken(token: String){
+        localDataSource.saveToken(token)
+    }
+
+    fun removeToken(){
+        localDataSource.saveToken("")
+    }
 }

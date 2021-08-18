@@ -9,16 +9,58 @@ import javax.inject.Inject
 @HiltViewModel
 class CartViewModel @Inject constructor(
     apiRepository: ApiRepository
-): ViewModel() {
+) : ViewModel() {
 
-    fun getDummyCartOrders(): ArrayList<Order>{
+    fun getDummyCartOrders(): ArrayList<Order> {
         return arrayListOf(
-            Order("August 15, 15:03","Burger King","Steak House Burger",30.0,1),
-            Order("August 30, 15:03","McDonald's","Double Cheese Burger",30.0,1),
-            Order("September 23, 15:03","Ali Usta'nın Yeri","Doner Kebab",150.0,10),
-            Order("November 4, 15:03","Burger King","Steak House Burger",30.0,1),
-            Order("January 23, 15:03","Burger King","Steak House Burger",30.0,1),
-            Order("March 1, 15:03","Burger King","Steak House Burger",30.0,1),
+            Order(
+                1231245125,
+                "Burger King",
+                "Steak House Burger",
+                30.0,
+                1,
+                "https://www.burgerking.com.tr/cmsfiles/products/bk-steakhouse-burger-menu.png?v=173"
+            ),
+            Order(
+                1231245125,
+                "McDonald's",
+                "Double Cheese Burger",
+                30.0,
+                1,
+                "https://www.burgerking.com.tr/cmsfiles/products/bk-steakhouse-burger-menu.png?v=173"
+            ),
+            Order(
+                1231245125,
+                "Ali Usta'nın Yeri",
+                "Doner Kebab",
+                150.0,
+                10,
+                "https://www.burgerking.com.tr/cmsfiles/products/bk-steakhouse-burger-menu.png?v=173"
+            ),
+            Order(
+                1231245125,
+                "Burger King",
+                "Steak House Burger",
+                30.0,
+                1,
+                "https://www.burgerking.com.tr/cmsfiles/products/bk-steakhouse-burger-menu.png?v=173"
+            ),
+            Order(
+                1231245125,
+                "Burger King",
+                "Steak House Burger",
+                30.0,
+                1,
+                "https://www.burgerking.com.tr/cmsfiles/products/bk-steakhouse-burger-menu.png?v=173"
+            ),
+            Order(
+                1231245125,
+                "Burger King",
+                "Steak House Burger",
+                30.0,
+                1,
+                "https://www.burgerking.com.tr/cmsfiles/products/bk-steakhouse-burger-menu.png?v=173"
+            ),
         )
     }
 
