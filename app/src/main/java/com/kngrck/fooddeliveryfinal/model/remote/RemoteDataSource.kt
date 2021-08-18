@@ -1,6 +1,8 @@
 package com.kngrck.fooddeliveryfinal.model.remote
 
 
+import com.kngrck.fooddeliveryfinal.model.entity.cart.AddCartRequest
+import com.kngrck.fooddeliveryfinal.model.entity.cart.UpdateCartOrderCountRequest
 import com.kngrck.fooddeliveryfinal.model.entity.meal.Meal
 import com.kngrck.fooddeliveryfinal.model.entity.order.Order
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.Restaurant
@@ -42,6 +44,27 @@ class RemoteDataSource @Inject constructor(private val apiService: APIService) :
 
     suspend fun addOrder(order: Order) = getResult {
         apiService.addOrder(order)
+    }
+
+    //CART
+    suspend fun addToCart(addCartRequest:AddCartRequest) = getResult {
+        apiService.addToCart(addCartRequest)
+    }
+
+    suspend fun getCart() = getResult {
+        apiService.getCart()
+    }
+
+    suspend fun confirmCart() = getResult {
+        apiService.confirmCart()
+    }
+
+    suspend fun updateCartOrderCount(cartOrderId: String,count: UpdateCartOrderCountRequest) = getResult {
+        apiService.updateCartOrderCount(cartOrderId,count)
+    }
+
+    suspend fun deleteCartOrder(cartOrderId: String) = getResult {
+        apiService.deleteCartOrder(cartOrderId)
     }
 }
 

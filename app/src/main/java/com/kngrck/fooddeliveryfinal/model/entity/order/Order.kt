@@ -1,10 +1,11 @@
 package com.kngrck.fooddeliveryfinal.model.entity.order
 
 data class Order(
-    val createdAt: Long,
+    val id: String,
+    val createdAt: Long?,
     val restaurantName: String,
     val mealName: String,
     val mealPrice: Double,
-    val count: Int,
+    var count: Int,
     val mealImage: String,
 )

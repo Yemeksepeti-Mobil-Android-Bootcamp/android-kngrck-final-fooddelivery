@@ -71,7 +71,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginVertical="8dp"
-                        app:cardBackgroundColor="@color/secondary"
+                        app:cardBackgroundColor="@color/green"
                         app:cardCornerRadius="16dp"
                         app:contentPadding="10dp">
 
@@ -92,7 +92,7 @@
                                 />
 
                             <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/mealCount"
+                                android:id="@+id/orderCount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_marginHorizontal="8dp"

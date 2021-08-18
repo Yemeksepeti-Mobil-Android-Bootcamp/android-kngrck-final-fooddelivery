@@ -3,6 +3,8 @@ package com.kngrck.fooddeliveryfinal.ui.meal
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.kngrck.fooddeliveryfinal.model.ApiRepository
+import com.kngrck.fooddeliveryfinal.model.entity.cart.AddCartRequest
+import com.kngrck.fooddeliveryfinal.model.entity.common.BaseResponse
 import com.kngrck.fooddeliveryfinal.model.entity.meal.Ingredient
 import com.kngrck.fooddeliveryfinal.model.entity.meal.Meal
 import com.kngrck.fooddeliveryfinal.model.entity.meal.MealResponse
@@ -17,4 +19,6 @@ class MealViewModel @Inject constructor(
     private var apiRepository: ApiRepository
 ):ViewModel() {
     fun getMealById(id: String,restaurantId: String): LiveData<Resource<MealResponse>> = apiRepository.getMealById(id,restaurantId)
+
+    fun addToCart(addCartRequest: AddCartRequest): LiveData<Resource<BaseResponse>> = apiRepository.addToCart(addCartRequest)
 }

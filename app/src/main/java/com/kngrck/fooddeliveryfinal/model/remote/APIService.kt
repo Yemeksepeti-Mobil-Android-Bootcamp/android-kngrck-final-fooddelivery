@@ -1,5 +1,7 @@
 package com.kngrck.fooddeliveryfinal.model.remote
 
+import com.kngrck.fooddeliveryfinal.model.entity.cart.AddCartRequest
+import com.kngrck.fooddeliveryfinal.model.entity.cart.UpdateCartOrderCountRequest
 import com.kngrck.fooddeliveryfinal.model.entity.common.BaseResponse
 import com.kngrck.fooddeliveryfinal.model.entity.meal.Meal
 import com.kngrck.fooddeliveryfinal.model.entity.meal.MealResponse
@@ -9,10 +11,7 @@ import com.kngrck.fooddeliveryfinal.model.entity.restaurant.Restaurant
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.RestaurantListResponse
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.RestaurantResponse
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 
 interface APIService {
@@ -47,5 +46,19 @@ interface APIService {
     @POST("order")
     suspend fun addOrder(@Body request: Order): Response<BaseResponse>
 
+    //CART
+    @GET("cart")
+    suspend fun getCart(): Response<OrderListResponse>
 
+    @GET("cart/order")
+    suspend fun confirmCart(): Response<BaseResponse>
+
+    @POST("cart")
+    suspend fun addToCart(@Body request: AddCartRequest): Response<BaseResponse>
+
+    @PATCH("cart/{cartOrderId}/count")
+    suspend fun updateCartOrderCount(@Path("cartOrderId") cartOrderId: String,@Body request: UpdateCartOrderCountRequest): Response<BaseResponse>
+
+    @DELETE("cart/{cartOrderId}")
+    suspend fun deleteCartOrder(@Path("cartOrderId") cartOrderId: String): Response<BaseResponse>
 }

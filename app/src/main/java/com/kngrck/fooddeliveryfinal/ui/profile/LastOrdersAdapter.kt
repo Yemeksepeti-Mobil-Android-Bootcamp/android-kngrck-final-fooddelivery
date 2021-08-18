@@ -8,10 +8,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.kngrck.fooddeliveryfinal.R
 import com.kngrck.fooddeliveryfinal.databinding.ItemLastOrderBinding
 import com.kngrck.fooddeliveryfinal.model.entity.order.Order
-import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
-import java.time.temporal.TemporalAccessor
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -31,13 +28,21 @@ class LastOrdersAdapter : RecyclerView.Adapter<LastOrdersAdapter.LastOrdersViewH
         val order = orders[position]
         with(holder) {
             with(binding) {
-                val date = Date(order.createdAt)
-                val format = SimpleDateFormat("yyyy/MM/dd HH:mm")
+
+                if (order.createdAt != null) {
+                    val date = Date(order.createdAt)
+                    val format = SimpleDateFormat("yyyy/MM/dd HH:mm")
+                    orderDateTextView.text = format.format(date)
+                } else {
+                    orderDateTextView.text = ""
+                }
+
 
                 mealNameTextView.text = order.mealName
                 restaurantNameTextView.text = order.restaurantName
-                orderDateTextView.text = format.format(date)
-                mealPriceTextView.text = String.format("%.2f", order.mealPrice * order.count) + " TL"
+
+                mealPriceTextView.text =
+                    String.format("%.2f", order.mealPrice * order.count) + " TL"
                 mealCountTextView.text = order.count.toString() + " ad."
                 val options = RequestOptions().placeholder(R.drawable.ic_burger)
                 Glide.with(mealImageView.context)

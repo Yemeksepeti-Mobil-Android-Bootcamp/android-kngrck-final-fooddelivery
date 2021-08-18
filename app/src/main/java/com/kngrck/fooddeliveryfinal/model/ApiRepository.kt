@@ -1,6 +1,8 @@
 package com.kngrck.fooddeliveryfinal.model
 
 import androidx.lifecycle.LiveData
+import com.kngrck.fooddeliveryfinal.model.entity.cart.AddCartRequest
+import com.kngrck.fooddeliveryfinal.model.entity.cart.UpdateCartOrderCountRequest
 import com.kngrck.fooddeliveryfinal.model.entity.common.BaseResponse
 import com.kngrck.fooddeliveryfinal.model.entity.meal.Meal
 import com.kngrck.fooddeliveryfinal.model.entity.meal.MealResponse
@@ -33,8 +35,8 @@ class ApiRepository @Inject constructor(
         performNetworkOperation { remoteDataSource.addRestaurant(restaurant) }
 
     //MEAL
-    fun getMealById(id: String,restaurantId: String): LiveData<Resource<MealResponse>> =
-        performNetworkOperation { remoteDataSource.getMealById(id,restaurantId) }
+    fun getMealById(id: String, restaurantId: String): LiveData<Resource<MealResponse>> =
+        performNetworkOperation { remoteDataSource.getMealById(id, restaurantId) }
 
     fun addMeal(restaurantId: String, meal: Meal): LiveData<Resource<BaseResponse>> =
         performNetworkOperation { remoteDataSource.addMeal(restaurantId, meal) }
@@ -46,15 +48,34 @@ class ApiRepository @Inject constructor(
     fun addOrder(order: Order): LiveData<Resource<BaseResponse>> =
         performNetworkOperation { remoteDataSource.addOrder(order) }
 
+    //CART
+
+    fun addToCart(addCartRequest: AddCartRequest): LiveData<Resource<BaseResponse>> =
+        performNetworkOperation { remoteDataSource.addToCart(addCartRequest) }
+
+    fun getCart(): LiveData<Resource<OrderListResponse>> =
+        performNetworkOperation { remoteDataSource.getCart() }
+
+    fun confirmCart(): LiveData<Resource<BaseResponse>> =
+        performNetworkOperation { remoteDataSource.confirmCart() }
+
+    fun updateCartOrderCount(cartOrderId: String,count: UpdateCartOrderCountRequest): LiveData<Resource<BaseResponse>> =
+        performNetworkOperation { remoteDataSource.updateCartOrderCount(cartOrderId,count) }
+
+    fun deleteCartOrder(cartOrderId: String): LiveData<Resource<BaseResponse>> =
+        performNetworkOperation { remoteDataSource.deleteCartOrder(cartOrderId) }
+
     //Token
     fun getToken(): String? =
         localDataSource.getToken()
 
-    fun saveToken(token: String){
+    fun saveToken(token: String) {
         localDataSource.saveToken(token)
     }
 
-    fun removeToken(){
+    fun removeToken() {
         localDataSource.saveToken("")
     }
+
+
 }

@@ -10,6 +10,7 @@ import com.kngrck.fooddeliveryfinal.ui.restaurant.IMealOnClick
 
 class IngredientsAdapter : RecyclerView.Adapter<IngredientsAdapter.IngredientsViewHolder>() {
     private var ingredients = ArrayList<String>()
+    private var checkedIngredients = ArrayList<String>()
 
     inner class IngredientsViewHolder(val binding: ItemIngredientBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -25,6 +26,10 @@ class IngredientsAdapter : RecyclerView.Adapter<IngredientsAdapter.IngredientsVi
         with(holder) {
             with(binding) {
                 ingredientCheckBox.text = ingredient
+                ingredientCheckBox.setOnCheckedChangeListener { _, isChecked ->
+                    if(isChecked) checkedIngredients.add(ingredient)
+                    else checkedIngredients.remove(ingredient)
+                }
             }
 
         }
@@ -34,6 +39,8 @@ class IngredientsAdapter : RecyclerView.Adapter<IngredientsAdapter.IngredientsVi
         this.ingredients = ingredients
         notifyDataSetChanged()
     }
+
+    fun getCheckedIngredients(): ArrayList<String> = checkedIngredients
 
 //    fun setListener(listener: IMealOnClick) {
 //        this.listener = listener
