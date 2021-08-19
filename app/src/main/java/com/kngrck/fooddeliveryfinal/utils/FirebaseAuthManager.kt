@@ -35,6 +35,20 @@ object FirebaseAuthManager {
 
     }
 
+    fun signUp(email: String, password: String,listener: AuthListener){
+        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
+            if (it.isSuccessful) {
+                Log.d("AUTH", "Success")
+
+                listener.isAuthSuccess(true)
+            } else {
+                Log.d("AUTH", "fail")
+                listener.isAuthSuccess(false)
+            }
+
+        }
+    }
+
     fun signOut() {
         auth.signOut()
     }
