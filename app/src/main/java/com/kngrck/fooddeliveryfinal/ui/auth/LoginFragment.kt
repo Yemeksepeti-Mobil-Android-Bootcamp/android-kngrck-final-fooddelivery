@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kngrck.fooddeliveryfinal.databinding.FragmentLoginBinding
 import com.kngrck.fooddeliveryfinal.ui.MainActivity
 import com.kngrck.fooddeliveryfinal.utils.AuthListener
@@ -16,7 +17,7 @@ import com.kngrck.fooddeliveryfinal.utils.FirebaseAuthManager
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoginFragment : Fragment() {
+class LoginFragment : BottomSheetDialogFragment() {
     private lateinit var _binding: FragmentLoginBinding
     private val viewModel: LoginViewModel by viewModels()
 
@@ -28,53 +29,34 @@ class LoginFragment : Fragment() {
         return _binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        FirebaseAuthManager.initialize(requireContext())
+//    _binding.loginButton.setOnClickListener {
+//        FirebaseAuthManager.signIn(object : AuthListener {
+//            override fun isAuthSuccess(success: Boolean) {
+//                if (success) {
+//                    FirebaseAuthManager.getCurrentUser()?.getIdToken(true)
+//                        ?.addOnCompleteListener {
+//                            if (it.isSuccessful) {
+//                                val accessToken=  it.result?.token
+//                                accessToken?.let {
+//                                    viewModel.saveToken(it)
+//                                    val intent = Intent(context, MainActivity::class.java)
+//                                    startActivity(intent)
+//                                    requireActivity().finish()
+//                                }
+//                            } else {
+//                                Log.d("AUTH", "Token failed")
+//                            }
+//                        }
+//
+//                } else {
+//                    Toast.makeText(context, "Login failed", Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//
+//        })
+//    }
 
-        FirebaseAuthManager.getCurrentUser()?.getIdToken(true)?.addOnCompleteListener {
-            if (it.isSuccessful ) {
-                val accessToken=  it.result?.token
-                accessToken?.let {
-                    viewModel.saveToken(it)
-                    val intent = Intent(context, MainActivity::class.java)
-                    startActivity(intent)
-                    requireActivity().finish()
-                }
 
-            } else {
-                Toast.makeText(context, "Login failed", Toast.LENGTH_SHORT).show()
-            }
-
-        }
-
-        _binding.loginButton.setOnClickListener {
-            FirebaseAuthManager.signIn(object : AuthListener {
-                override fun isAuthSuccess(success: Boolean) {
-                    if (success) {
-                        FirebaseAuthManager.getCurrentUser()?.getIdToken(true)
-                            ?.addOnCompleteListener {
-                                if (it.isSuccessful) {
-                                    val accessToken=  it.result?.token
-                                    accessToken?.let {
-                                        viewModel.saveToken(it)
-                                        val intent = Intent(context, MainActivity::class.java)
-                                        startActivity(intent)
-                                        requireActivity().finish()
-                                    }
-                                } else {
-                                    Log.d("AUTH", "Token failed")
-                                }
-                            }
-
-                    } else {
-                        Toast.makeText(context, "Login failed", Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-            })
-        }
-    }
 
 
 }

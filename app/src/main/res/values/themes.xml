@@ -13,7 +13,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
-    
+
     <style name="collapsingToolbarLayoutTitleColor" parent="@android:style/TextAppearance.Medium">
         <item name="android:textColor">@color/white</item>
         <item name="fontFamily">@font/poppins_medium</item>
@@ -22,5 +22,19 @@
 
     <style name="CircularImageView">
         <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="ThemeOverlay.BottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Widget.BottomSheet</item>
+    </style>
+
+    <style name="Widget.BottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay" parent="">
+        <item name="cornerSize">0dp</item>
+        <item name="cornerSizeTopLeft">30dp</item>
+        <item name="cornerSizeTopRight">30dp</item>
     </style>
 </resources>
