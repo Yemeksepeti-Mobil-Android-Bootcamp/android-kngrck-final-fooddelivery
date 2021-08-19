@@ -6,4 +6,4 @@ data class AddCartRequest(
     val count: Int,
     val ingredients: List<String>,
 
-)
+    )

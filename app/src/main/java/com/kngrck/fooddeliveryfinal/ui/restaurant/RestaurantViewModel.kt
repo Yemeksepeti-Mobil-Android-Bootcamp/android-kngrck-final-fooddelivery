@@ -14,9 +14,11 @@ import javax.inject.Inject
 @HiltViewModel
 class RestaurantViewModel @Inject constructor(
     private val apiRepository: ApiRepository
-): ViewModel(){
+) : ViewModel() {
 
-    fun getRestaurantById(id: String): LiveData<Resource<RestaurantResponse>> = apiRepository.getRestaurantById(id)
+    fun getRestaurantById(id: String): LiveData<Resource<RestaurantResponse>> =
+        apiRepository.getRestaurantById(id)
 
-    fun addRestaurantToFavorite(addFavoriteRestaurantRequest: AddFavoriteRestaurantRequest): LiveData<Resource<BaseResponse>> = apiRepository.addRestaurantToFavorite(addFavoriteRestaurantRequest)
+    fun addRestaurantToFavorite(addFavoriteRestaurantRequest: AddFavoriteRestaurantRequest): LiveData<Resource<BaseResponse>> =
+        apiRepository.addRestaurantToFavorite(addFavoriteRestaurantRequest)
 }

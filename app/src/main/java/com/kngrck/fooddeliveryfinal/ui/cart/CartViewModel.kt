@@ -21,9 +21,12 @@ class CartViewModel @Inject constructor(
     fun confirmCart(): LiveData<Resource<BaseResponse>> =
         apiRepository.confirmCart()
 
-    fun updateCartOrderCount(cartOrderId: String, count: UpdateCartOrderCountRequest): LiveData<Resource<BaseResponse>> =
-        apiRepository.updateCartOrderCount(cartOrderId,count)
+    fun updateCartOrderCount(
+        cartOrderId: String,
+        count: UpdateCartOrderCountRequest
+    ): LiveData<Resource<BaseResponse>> =
+        apiRepository.updateCartOrderCount(cartOrderId, count)
 
-    fun deleteCartOrder(cartOrderId: String) : LiveData<Resource<BaseResponse>> =
+    fun deleteCartOrder(cartOrderId: String): LiveData<Resource<BaseResponse>> =
         apiRepository.deleteCartOrder(cartOrderId)
 }

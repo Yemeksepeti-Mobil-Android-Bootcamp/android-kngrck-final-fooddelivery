@@ -32,7 +32,10 @@ interface APIService {
 
     //MEAL
     @GET("restaurant/{restaurantId}/meal/{id}")
-    suspend fun getMealById(@Path("id") id: String, @Path("restaurantId") restaurantId: String): Response<MealResponse>
+    suspend fun getMealById(
+        @Path("id") id: String,
+        @Path("restaurantId") restaurantId: String
+    ): Response<MealResponse>
 
     @POST("restaurant/{restaurantId}/meal")
     suspend fun addMeal(
@@ -58,7 +61,10 @@ interface APIService {
     suspend fun addToCart(@Body request: AddCartRequest): Response<BaseResponse>
 
     @PATCH("cart/{cartOrderId}/count")
-    suspend fun updateCartOrderCount(@Path("cartOrderId") cartOrderId: String,@Body request: UpdateCartOrderCountRequest): Response<BaseResponse>
+    suspend fun updateCartOrderCount(
+        @Path("cartOrderId") cartOrderId: String,
+        @Body request: UpdateCartOrderCountRequest
+    ): Response<BaseResponse>
 
     @DELETE("cart/{cartOrderId}")
     suspend fun deleteCartOrder(@Path("cartOrderId") cartOrderId: String): Response<BaseResponse>

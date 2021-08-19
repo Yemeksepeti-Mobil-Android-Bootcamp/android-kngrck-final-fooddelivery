@@ -5,8 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
-import com.kngrck.fooddeliveryfinal.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.kngrck.fooddeliveryfinal.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

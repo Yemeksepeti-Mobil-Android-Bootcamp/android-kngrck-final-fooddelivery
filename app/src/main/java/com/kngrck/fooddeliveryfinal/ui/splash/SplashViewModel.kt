@@ -8,7 +8,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SplashViewModel @Inject constructor(
     private val apiRepository: ApiRepository
-) : ViewModel(){
+) : ViewModel() {
     fun getToken(): String? =
         apiRepository.getToken()
 

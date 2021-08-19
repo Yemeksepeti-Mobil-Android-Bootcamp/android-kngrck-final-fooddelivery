@@ -13,7 +13,7 @@ import com.kngrck.fooddeliveryfinal.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FavoriteFragment : Fragment(),IOnDeleteRestaurant {
+class FavoriteFragment : Fragment(), IOnDeleteRestaurant {
     private lateinit var _binding: FragmentFavoriteBinding
     private val viewModel: FavoriteViewModel by viewModels()
     private var adapter: FavRestaurantsAdapter = FavRestaurantsAdapter()
@@ -35,31 +35,31 @@ class FavoriteFragment : Fragment(),IOnDeleteRestaurant {
         adapter.setListener(this)
         _binding.favRestaurantsRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-         viewModel.getFavoriteRestaurants().observe(viewLifecycleOwner,{
-             when (it.status) {
+        viewModel.getFavoriteRestaurants().observe(viewLifecycleOwner, {
+            when (it.status) {
 
-                 Resource.Status.LOADING -> {
-                     Log.v("Favorite", "Loading")
+                Resource.Status.LOADING -> {
+                    Log.v("Favorite", "Loading")
 
-                 }
-                 Resource.Status.SUCCESS -> {
-                     Log.v("Favorite", "Success")
-                     val favRestaurants = it.data?.data!!
-                     adapter.setFavRestaurants(favRestaurants)
-                     _binding.favRestaurantsRecyclerView.adapter = adapter
-                 }
-                 Resource.Status.ERROR -> {
+                }
+                Resource.Status.SUCCESS -> {
+                    Log.v("Favorite", "Success")
+                    val favRestaurants = it.data?.data!!
+                    adapter.setFavRestaurants(favRestaurants)
+                    _binding.favRestaurantsRecyclerView.adapter = adapter
+                }
+                Resource.Status.ERROR -> {
 
-                     Log.v("Favorite", "Error")
-                 }
-             }
+                    Log.v("Favorite", "Error")
+                }
+            }
         })
 
     }
 
     override fun onDeleteRestaurant(restaurantId: String) {
-        Log.v("Favorite","restaurant id $restaurantId")
-        viewModel.deleteFavoriteRestaurant(restaurantId).observe(viewLifecycleOwner,{
+        Log.v("Favorite", "restaurant id $restaurantId")
+        viewModel.deleteFavoriteRestaurant(restaurantId).observe(viewLifecycleOwner, {
             when (it.status) {
 
                 Resource.Status.LOADING -> {

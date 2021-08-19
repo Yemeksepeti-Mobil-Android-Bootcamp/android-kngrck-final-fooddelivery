@@ -20,10 +20,11 @@ object FirebaseAuthManager {
         currentUser = auth.currentUser
     }
 
-    fun signIn(listener: AuthListener) {
-        auth.signInWithEmailAndPassword("test@test.com", "123123").addOnCompleteListener {
+    fun signIn(email: String, password: String, listener: AuthListener) {
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
             if (it.isSuccessful) {
                 Log.d("AUTH", "Success")
+
                 listener.isAuthSuccess(true)
             } else {
                 Log.d("AUTH", "fail")
@@ -38,7 +39,7 @@ object FirebaseAuthManager {
         auth.signOut()
     }
 
-    fun getCurrentUser(): FirebaseUser? = currentUser
+    fun getCurrentUser(): FirebaseUser? = auth.currentUser
 
 
 }

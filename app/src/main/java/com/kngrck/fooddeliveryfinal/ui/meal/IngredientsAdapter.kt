@@ -4,9 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kngrck.fooddeliveryfinal.databinding.ItemIngredientBinding
-import com.kngrck.fooddeliveryfinal.model.entity.meal.Ingredient
-import com.kngrck.fooddeliveryfinal.model.entity.meal.Meal
-import com.kngrck.fooddeliveryfinal.ui.restaurant.IMealOnClick
 
 class IngredientsAdapter : RecyclerView.Adapter<IngredientsAdapter.IngredientsViewHolder>() {
     private var ingredients = ArrayList<String>()
@@ -27,7 +24,7 @@ class IngredientsAdapter : RecyclerView.Adapter<IngredientsAdapter.IngredientsVi
             with(binding) {
                 ingredientCheckBox.text = ingredient
                 ingredientCheckBox.setOnCheckedChangeListener { _, isChecked ->
-                    if(isChecked) checkedIngredients.add(ingredient)
+                    if (isChecked) checkedIngredients.add(ingredient)
                     else checkedIngredients.remove(ingredient)
                 }
             }

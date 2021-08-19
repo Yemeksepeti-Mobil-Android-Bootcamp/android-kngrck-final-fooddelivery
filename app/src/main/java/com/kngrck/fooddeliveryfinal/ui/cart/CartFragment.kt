@@ -121,7 +121,7 @@ class CartFragment : Fragment(), ICountChangeListener {
         return sum
     }
 
-    override fun countChanged(cartOrderId: String, count: Int,updatedOrders: ArrayList<Order>) {
+    override fun countChanged(cartOrderId: String, count: Int, updatedOrders: ArrayList<Order>) {
 
         val updateCartOrderCountRequest = UpdateCartOrderCountRequest(count)
 
@@ -133,7 +133,7 @@ class CartFragment : Fragment(), ICountChangeListener {
                     }
                     Resource.Status.SUCCESS -> {
                         _binding.totalTextView.text = String.format("%.2f", getTotal()) + " TL"
-                        with(_binding){
+                        with(_binding) {
                             if (updatedOrders.size == 0) {
                                 orderButton.isClickable = false
                                 orderButton.alpha = 0.5f

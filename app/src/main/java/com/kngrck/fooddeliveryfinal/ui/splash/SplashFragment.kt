@@ -32,7 +32,7 @@ class SplashFragment : Fragment() {
         FirebaseAuthManager.initialize(requireContext())
 
 
-        _binding.splashAnimation.addAnimatorListener(object: Animator.AnimatorListener{
+        _binding.splashAnimation.addAnimatorListener(object : Animator.AnimatorListener {
             override fun onAnimationStart(animation: Animator?) {
             }
 
@@ -49,10 +49,9 @@ class SplashFragment : Fragment() {
         })
 
 
-
     }
 
-    private fun checkUserAndLogin(){
+    private fun checkUserAndLogin() {
         FirebaseAuthManager.getCurrentUser()?.let {
             it.getIdToken(true).addOnCompleteListener { result ->
                 if (result.isSuccessful) {

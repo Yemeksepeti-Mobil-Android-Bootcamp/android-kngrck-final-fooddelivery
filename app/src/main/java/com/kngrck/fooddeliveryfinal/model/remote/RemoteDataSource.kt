@@ -31,7 +31,7 @@ class RemoteDataSource @Inject constructor(private val apiService: APIService) :
 
     //MEAL
     suspend fun getMealById(id: String, restaurantId: String) = getResult {
-        apiService.getMealById(id,restaurantId)
+        apiService.getMealById(id, restaurantId)
     }
 
     suspend fun addMeal(restaurantId: String, meal: Meal) = getResult {
@@ -48,7 +48,7 @@ class RemoteDataSource @Inject constructor(private val apiService: APIService) :
     }
 
     //CART
-    suspend fun addToCart(addCartRequest:AddCartRequest) = getResult {
+    suspend fun addToCart(addCartRequest: AddCartRequest) = getResult {
         apiService.addToCart(addCartRequest)
     }
 
@@ -60,9 +60,10 @@ class RemoteDataSource @Inject constructor(private val apiService: APIService) :
         apiService.confirmCart()
     }
 
-    suspend fun updateCartOrderCount(cartOrderId: String,count: UpdateCartOrderCountRequest) = getResult {
-        apiService.updateCartOrderCount(cartOrderId,count)
-    }
+    suspend fun updateCartOrderCount(cartOrderId: String, count: UpdateCartOrderCountRequest) =
+        getResult {
+            apiService.updateCartOrderCount(cartOrderId, count)
+        }
 
     suspend fun deleteCartOrder(cartOrderId: String) = getResult {
         apiService.deleteCartOrder(cartOrderId)
@@ -73,9 +74,10 @@ class RemoteDataSource @Inject constructor(private val apiService: APIService) :
         apiService.getFavoriteRestaurants()
     }
 
-    suspend fun addRestaurantToFavorite(addFavoriteRestaurantRequest: AddFavoriteRestaurantRequest) = getResult {
-        apiService.addRestaurantToFavorite(addFavoriteRestaurantRequest)
-    }
+    suspend fun addRestaurantToFavorite(addFavoriteRestaurantRequest: AddFavoriteRestaurantRequest) =
+        getResult {
+            apiService.addRestaurantToFavorite(addFavoriteRestaurantRequest)
+        }
 
     suspend fun deleteFavoriteRestaurant(restaurantId: String) = getResult {
         apiService.deleteFavoriteRestaurant(restaurantId)

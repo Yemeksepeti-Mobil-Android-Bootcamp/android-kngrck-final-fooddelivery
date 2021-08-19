@@ -15,7 +15,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.kngrck.fooddeliveryfinal.R
 import com.kngrck.fooddeliveryfinal.databinding.FragmentMealBinding
 import com.kngrck.fooddeliveryfinal.model.entity.cart.AddCartRequest
-import com.kngrck.fooddeliveryfinal.ui.restaurant.RestaurantFragmentArgs
 import com.kngrck.fooddeliveryfinal.utils.Resource
 import com.kngrck.fooddeliveryfinal.utils.gone
 import com.kngrck.fooddeliveryfinal.utils.show
@@ -48,12 +47,12 @@ class MealFragment : Fragment() {
         getMealAndSetViews()
     }
 
-    private fun initListeners(){
-        _binding.decreaseCountButton.setOnClickListener{
+    private fun initListeners() {
+        _binding.decreaseCountButton.setOnClickListener {
             decreaseCount()
         }
 
-        _binding.increaseCountButton.setOnClickListener{
+        _binding.increaseCountButton.setOnClickListener {
             increaseCount()
         }
 
@@ -62,14 +61,14 @@ class MealFragment : Fragment() {
         }
     }
 
-    private fun addToCartAndNavigateToHome(){
+    private fun addToCartAndNavigateToHome() {
         val addCartRequest = AddCartRequest(
             args.restaurantId,
             args.mealId,
             count,
             adapter.getCheckedIngredients()
         )
-        viewModel.addToCart(addCartRequest).observe(viewLifecycleOwner,{
+        viewModel.addToCart(addCartRequest).observe(viewLifecycleOwner, {
             when (it.status) {
                 Resource.Status.LOADING -> {
                     _binding.mainLayout.gone()
@@ -90,8 +89,8 @@ class MealFragment : Fragment() {
         })
     }
 
-    private fun getMealAndSetViews(){
-        viewModel.getMealById(args.mealId,args.restaurantId).observe(viewLifecycleOwner, {
+    private fun getMealAndSetViews() {
+        viewModel.getMealById(args.mealId, args.restaurantId).observe(viewLifecycleOwner, {
             when (it.status) {
                 Resource.Status.LOADING -> {
                     _binding.mainLayout.gone()
@@ -127,13 +126,13 @@ class MealFragment : Fragment() {
         })
     }
 
-    private fun increaseCount (){
+    private fun increaseCount() {
         count++
         _binding.orderCount.text = count.toString()
     }
 
-    private fun decreaseCount (){
-        if(count>1) count--
+    private fun decreaseCount() {
+        if (count > 1) count--
         _binding.orderCount.text = count.toString()
     }
 }

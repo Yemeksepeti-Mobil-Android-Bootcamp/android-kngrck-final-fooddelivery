@@ -34,7 +34,7 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.OrdersViewHolder>() {
                     if (count > 1) {
                         count--
                         orders[position].count = count
-                        listener?.countChanged(order.id, orders[position].count,orders)
+                        listener?.countChanged(order.id, orders[position].count, orders)
                         notifyItemChanged(position)
                     } else if (count == 1) {
                         orders.remove(order)

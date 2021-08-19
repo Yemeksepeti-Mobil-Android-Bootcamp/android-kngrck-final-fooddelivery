@@ -44,7 +44,7 @@ class NetworkModule {
         return OkHttpClient.Builder()
             .addInterceptor { interceptor ->
                 val token = localDataSource.getToken()
-                Log.v("Network","token $token")
+                Log.v("Network", "token $token")
                 val request =
                     interceptor.request().newBuilder().addHeader("Authorization", token!!).build()
                 interceptor.proceed(request)

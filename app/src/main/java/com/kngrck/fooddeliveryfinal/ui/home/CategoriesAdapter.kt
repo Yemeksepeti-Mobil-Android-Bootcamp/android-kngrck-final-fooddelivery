@@ -53,8 +53,6 @@ class CategoriesAdapter : RecyclerView.Adapter<CategoriesAdapter.CategoriesViewH
             }
 
 
-
-
         }
 
 

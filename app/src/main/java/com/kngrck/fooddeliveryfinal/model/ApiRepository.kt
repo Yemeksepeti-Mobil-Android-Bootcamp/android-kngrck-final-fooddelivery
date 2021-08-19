@@ -60,8 +60,11 @@ class ApiRepository @Inject constructor(
     fun confirmCart(): LiveData<Resource<BaseResponse>> =
         performNetworkOperation { remoteDataSource.confirmCart() }
 
-    fun updateCartOrderCount(cartOrderId: String,count: UpdateCartOrderCountRequest): LiveData<Resource<BaseResponse>> =
-        performNetworkOperation { remoteDataSource.updateCartOrderCount(cartOrderId,count) }
+    fun updateCartOrderCount(
+        cartOrderId: String,
+        count: UpdateCartOrderCountRequest
+    ): LiveData<Resource<BaseResponse>> =
+        performNetworkOperation { remoteDataSource.updateCartOrderCount(cartOrderId, count) }
 
     fun deleteCartOrder(cartOrderId: String): LiveData<Resource<BaseResponse>> =
         performNetworkOperation { remoteDataSource.deleteCartOrder(cartOrderId) }
@@ -72,7 +75,11 @@ class ApiRepository @Inject constructor(
         performNetworkOperation { remoteDataSource.getFavoriteRestaurants() }
 
     fun addRestaurantToFavorite(addFavoriteRestaurantRequest: AddFavoriteRestaurantRequest): LiveData<Resource<BaseResponse>> =
-        performNetworkOperation { remoteDataSource.addRestaurantToFavorite(addFavoriteRestaurantRequest) }
+        performNetworkOperation {
+            remoteDataSource.addRestaurantToFavorite(
+                addFavoriteRestaurantRequest
+            )
+        }
 
     fun deleteFavoriteRestaurant(restaurantId: String): LiveData<Resource<BaseResponse>> =
         performNetworkOperation { remoteDataSource.deleteFavoriteRestaurant(restaurantId) }
