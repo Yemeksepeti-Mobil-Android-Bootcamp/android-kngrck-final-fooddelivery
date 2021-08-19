@@ -3,6 +3,7 @@ package com.kngrck.fooddeliveryfinal.model.remote
 
 import com.kngrck.fooddeliveryfinal.model.entity.cart.AddCartRequest
 import com.kngrck.fooddeliveryfinal.model.entity.cart.UpdateCartOrderCountRequest
+import com.kngrck.fooddeliveryfinal.model.entity.favorite.AddFavoriteRestaurantRequest
 import com.kngrck.fooddeliveryfinal.model.entity.meal.Meal
 import com.kngrck.fooddeliveryfinal.model.entity.order.Order
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.Restaurant
@@ -66,5 +67,19 @@ class RemoteDataSource @Inject constructor(private val apiService: APIService) :
     suspend fun deleteCartOrder(cartOrderId: String) = getResult {
         apiService.deleteCartOrder(cartOrderId)
     }
+
+    //FAVORITE RESTAURANT
+    suspend fun getFavoriteRestaurants() = getResult {
+        apiService.getFavoriteRestaurants()
+    }
+
+    suspend fun addRestaurantToFavorite(addFavoriteRestaurantRequest: AddFavoriteRestaurantRequest) = getResult {
+        apiService.addRestaurantToFavorite(addFavoriteRestaurantRequest)
+    }
+
+    suspend fun deleteFavoriteRestaurant(restaurantId: String) = getResult {
+        apiService.deleteFavoriteRestaurant(restaurantId)
+    }
+
 }
 

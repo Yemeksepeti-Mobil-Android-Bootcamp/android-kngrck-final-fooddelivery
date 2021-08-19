@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "254778955908",
+    "project_id": "fooddeliverybootcamp",
+    "storage_bucket": "fooddeliverybootcamp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:254778955908:android:1f292985ce2b403910cad1",
+        "android_client_info": {
+          "package_name": "com.kngrck.fooddeliveryfinal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "254778955908-kfkp3h6413ot7iel0rkuvovam0idaq8b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBf-8NYCczU0cAqvrxmweFjv6VRgZiM4cA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "254778955908-kfkp3h6413ot7iel0rkuvovam0idaq8b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

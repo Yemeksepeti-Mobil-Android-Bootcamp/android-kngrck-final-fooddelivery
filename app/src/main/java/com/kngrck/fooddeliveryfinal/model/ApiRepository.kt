@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.kngrck.fooddeliveryfinal.model.entity.cart.AddCartRequest
 import com.kngrck.fooddeliveryfinal.model.entity.cart.UpdateCartOrderCountRequest
 import com.kngrck.fooddeliveryfinal.model.entity.common.BaseResponse
+import com.kngrck.fooddeliveryfinal.model.entity.favorite.AddFavoriteRestaurantRequest
 import com.kngrck.fooddeliveryfinal.model.entity.meal.Meal
 import com.kngrck.fooddeliveryfinal.model.entity.meal.MealResponse
 import com.kngrck.fooddeliveryfinal.model.entity.order.Order
@@ -64,6 +65,17 @@ class ApiRepository @Inject constructor(
 
     fun deleteCartOrder(cartOrderId: String): LiveData<Resource<BaseResponse>> =
         performNetworkOperation { remoteDataSource.deleteCartOrder(cartOrderId) }
+
+    //FAVORITE RESTAURANTS
+
+    fun getFavoriteRestaurants(): LiveData<Resource<RestaurantListResponse>> =
+        performNetworkOperation { remoteDataSource.getFavoriteRestaurants() }
+
+    fun addRestaurantToFavorite(addFavoriteRestaurantRequest: AddFavoriteRestaurantRequest): LiveData<Resource<BaseResponse>> =
+        performNetworkOperation { remoteDataSource.addRestaurantToFavorite(addFavoriteRestaurantRequest) }
+
+    fun deleteFavoriteRestaurant(restaurantId: String): LiveData<Resource<BaseResponse>> =
+        performNetworkOperation { remoteDataSource.deleteFavoriteRestaurant(restaurantId) }
 
     //Token
     fun getToken(): String? =

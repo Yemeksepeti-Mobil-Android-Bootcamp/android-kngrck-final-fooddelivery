@@ -9,6 +9,7 @@ import com.kngrck.fooddeliveryfinal.model.entity.restaurant.Restaurant
 class FavRestaurantsAdapter :
     RecyclerView.Adapter<FavRestaurantsAdapter.FavRestaurantsViewHolder>() {
     private var favRestaurants = ArrayList<Restaurant>()
+    private var listener: IOnDeleteRestaurant? = null
 
     inner class FavRestaurantsViewHolder(val binding: ItemFavRestaurantBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -27,6 +28,12 @@ class FavRestaurantsAdapter :
                 ratingTextView.text = restaurant.rating.toString()
                 minimumTextView.text = String.format("%.2f", restaurant.minimumFee) + " TL"
                 deliveryTimeTextView.text = restaurant.deliveryTime
+
+                deleteFavoriteButton.setOnClickListener {
+                    favRestaurants.remove(restaurant)
+                    listener?.onDeleteRestaurant(restaurant.id)
+                    notifyItemRemoved(position)
+                }
             }
 
         }
@@ -37,13 +44,13 @@ class FavRestaurantsAdapter :
         notifyDataSetChanged()
     }
 
-//    fun setListener(listener: IMealOnClick) {
-//        this.listener = listener
-//    }
-//
-//    fun removeListeners() {
-//        this.listener = null
-//    }
+    fun setListener(listener: IOnDeleteRestaurant) {
+        this.listener = listener
+    }
+
+    fun removeListeners() {
+        this.listener = null
+    }
 
     override fun getItemCount(): Int = favRestaurants.size
 }

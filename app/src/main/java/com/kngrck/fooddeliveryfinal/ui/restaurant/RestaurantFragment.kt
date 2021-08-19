@@ -14,15 +14,15 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.kngrck.fooddeliveryfinal.R
 import com.kngrck.fooddeliveryfinal.databinding.FragmentRestaurantBinding
+import com.kngrck.fooddeliveryfinal.model.entity.favorite.AddFavoriteRestaurantRequest
 import com.kngrck.fooddeliveryfinal.model.entity.meal.Meal
-import com.kngrck.fooddeliveryfinal.ui.home.HomeFragmentDirections
 import com.kngrck.fooddeliveryfinal.utils.Resource
 import com.kngrck.fooddeliveryfinal.utils.gone
 import com.kngrck.fooddeliveryfinal.utils.show
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RestaurantFragment : Fragment() ,IMealOnClick{
+class RestaurantFragment : Fragment(), IMealOnClick {
     private lateinit var _binding: FragmentRestaurantBinding
     private val args: RestaurantFragmentArgs by navArgs()
     private val viewModel: RestaurantViewModel by viewModels()
@@ -39,10 +39,12 @@ class RestaurantFragment : Fragment() ,IMealOnClick{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
+        initListeners()
     }
 
+
     private fun initViews() {
-        viewModel.getRestaurantById(args.restaurantId).observe(viewLifecycleOwner,{
+        viewModel.getRestaurantById(args.restaurantId).observe(viewLifecycleOwner, {
             when (it.status) {
 
                 Resource.Status.LOADING -> {
@@ -63,7 +65,8 @@ class RestaurantFragment : Fragment() ,IMealOnClick{
                         mealsRecyclerView.layoutManager =
                             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                         mealsRecyclerView.adapter = adapter
-                        minimumFeeTextView.text = String.format("%.2f", restaurant.minimumFee) + " TL"
+                        minimumFeeTextView.text =
+                            String.format("%.2f", restaurant.minimumFee) + " TL"
                         deliveryInfoTextView.text = restaurant.deliveryTime
                         restaurantDescriptionTextView.text = restaurant.description
 
@@ -81,6 +84,32 @@ class RestaurantFragment : Fragment() ,IMealOnClick{
             }
         })
 
+    }
+
+    private fun initListeners() {
+        _binding.backButton.setOnClickListener {
+            findNavController().popBackStack()
+        }
+        _binding.favoriteButton.setOnClickListener {
+            val addFavoriteRestaurantRequest = AddFavoriteRestaurantRequest(args.restaurantId)
+            viewModel.addRestaurantToFavorite(addFavoriteRestaurantRequest)
+                .observe(viewLifecycleOwner, {
+                    when (it.status) {
+
+                        Resource.Status.LOADING -> {
+                            Log.v("Restaurant", "Loading")
+
+                        }
+                        Resource.Status.SUCCESS -> {
+                            Log.v("Restaurant", "Success")
+                        }
+                        Resource.Status.ERROR -> {
+
+                            Log.v("Restaurant", "Error")
+                        }
+                    }
+                })
+        }
     }
 
     override fun onClick(meal: Meal) {

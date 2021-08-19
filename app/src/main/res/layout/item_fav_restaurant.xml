@@ -125,7 +125,7 @@
                 android:textSize="12sp" />
         </LinearLayout>
         <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/favoriteButton"
+            android:id="@+id/deleteFavoriteButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@null"
