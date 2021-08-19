@@ -5,5 +5,4 @@ data class AddCartRequest(
     val mealId: String,
     val count: Int,
     val ingredients: List<String>,
-
-    )
+)
