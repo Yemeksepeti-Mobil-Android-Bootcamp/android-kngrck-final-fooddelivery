@@ -166,7 +166,7 @@ class CartFragment : Fragment(), ICountChangeListener {
                                 Log.v("Cart", "success ")
                             }
                             Resource.Status.ERROR -> {
-                                Log.v("Cart", "error ${it}")
+                                Log.v("Cart", "error $it")
 
                             }
                         }

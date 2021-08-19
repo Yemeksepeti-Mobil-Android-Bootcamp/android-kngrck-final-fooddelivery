@@ -39,7 +39,7 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.OrdersViewHolder>() {
                     } else if (count == 1) {
                         orders.remove(order)
                         listener?.countChanged(order.id, 0, orders)
-                        notifyItemRemoved(position)
+                        notifyDataSetChanged()
                     }
 
 
@@ -48,7 +48,7 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.OrdersViewHolder>() {
                 increaseCountButton.setOnClickListener {
                     var count = order.count
                     count++
-                    orders[position].count = count
+                    order.count = count
                     listener?.countChanged(order.id, orders[position].count, orders)
                     notifyItemChanged(position)
                 }

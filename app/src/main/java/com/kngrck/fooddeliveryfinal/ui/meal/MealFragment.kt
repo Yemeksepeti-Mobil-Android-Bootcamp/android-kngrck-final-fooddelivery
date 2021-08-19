@@ -83,7 +83,7 @@ class MealFragment : Fragment() {
                 Resource.Status.ERROR -> {
                     _binding.mainLayout.show()
                     _binding.progressBar.gone()
-                    Log.v("Home", "Error")
+                    Log.v("Meal", "Error $it")
                 }
             }
         })
@@ -120,7 +120,7 @@ class MealFragment : Fragment() {
                 Resource.Status.ERROR -> {
                     _binding.mainLayout.show()
                     _binding.progressBar.gone()
-                    Log.v("Home", "Error")
+                    Log.v("Meal", "Error")
                 }
             }
         })
