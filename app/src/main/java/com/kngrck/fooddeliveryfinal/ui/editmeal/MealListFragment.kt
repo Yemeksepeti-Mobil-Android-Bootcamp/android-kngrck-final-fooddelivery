@@ -1,4 +1,4 @@
-package com.kngrck.fooddeliveryfinal.ui.editrestaurant
+package com.kngrck.fooddeliveryfinal.ui.editmeal
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.kngrck.fooddeliveryfinal.R
 import com.kngrck.fooddeliveryfinal.databinding.FragmentMealListBinding
 import com.kngrck.fooddeliveryfinal.utils.Resource
 import com.kngrck.fooddeliveryfinal.utils.gone
@@ -80,7 +81,8 @@ class MealListFragment : Fragment(), IOnDeleteMeal {
                 findNavController().popBackStack()
             }
             addMealButton.setOnClickListener {
-                //findNavController().navigate(R.id.action_restaurantListFragment_to_addRestaurantFragment)
+                val action = MealListFragmentDirections.actionMealListFragmentToAddMealFragment(args.restaurantId)
+                findNavController().navigate(action)
             }
         }
     }

@@ -3,6 +3,9 @@ package com.kngrck.fooddeliveryfinal.ui.cart
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.kngrck.fooddeliveryfinal.R
 import com.kngrck.fooddeliveryfinal.databinding.ItemCartOrderBinding
 import com.kngrck.fooddeliveryfinal.model.entity.order.Order
 
@@ -28,6 +31,11 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.OrdersViewHolder>() {
                 mealPriceTextView.text =
                     String.format("%.2f", order.mealPrice * order.count) + " TL"
                 mealCountTextView.text = order.count.toString() + " ad."
+
+                val options = RequestOptions().placeholder(R.drawable.ic_burger)
+                Glide.with(mealImageView.context)
+                    .applyDefaultRequestOptions(options)
+                    .load(order.mealImage).into(mealImageView)
 
                 decreaseCountButton.setOnClickListener {
                     var count = order.count

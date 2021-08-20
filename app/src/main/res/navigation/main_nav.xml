@@ -110,7 +110,7 @@
     </fragment>
     <fragment
         android:id="@+id/mealListFragment"
-        android:name="com.kngrck.fooddeliveryfinal.ui.editrestaurant.MealListFragment"
+        android:name="com.kngrck.fooddeliveryfinal.ui.editmeal.MealListFragment"
         android:label="fragment_meal_list"
         tools:layout="@layout/fragment_meal_list" >
         <argument
@@ -119,5 +119,19 @@
         <action
             android:id="@+id/action_mealListFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_mealListFragment_to_addMealFragment"
+            app:destination="@id/addMealFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addMealFragment"
+        android:name="com.kngrck.fooddeliveryfinal.ui.editmeal.AddMealFragment"
+        android:label="AddMealFragment" >
+        <action
+            android:id="@+id/action_addMealFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <argument
+            android:name="restaurantId"
+            app:argType="string" />
     </fragment>
 </navigation>

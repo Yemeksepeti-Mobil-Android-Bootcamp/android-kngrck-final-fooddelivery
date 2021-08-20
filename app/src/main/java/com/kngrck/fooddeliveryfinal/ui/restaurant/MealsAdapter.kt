@@ -27,12 +27,7 @@ class MealsAdapter : RecyclerView.Adapter<MealsAdapter.MealsViewHolder>() {
         with(holder) {
             with(binding) {
 
-                var ingredientsText = ""
-                for (i in 0 until 3) {
-                    ingredientsText += meal.ingredients[i]
-                }
                 mealNameTextView.text = meal.name
-                mealIngredientsTextView.text = ingredientsText
                 mealPrice.text = String.format("%.2f", meal.price) + " TL"
 
                 val options = RequestOptions().placeholder(R.drawable.ic_burger)

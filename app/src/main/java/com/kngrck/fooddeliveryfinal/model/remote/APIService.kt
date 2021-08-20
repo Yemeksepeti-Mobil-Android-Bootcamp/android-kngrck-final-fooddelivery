@@ -4,6 +4,7 @@ import com.kngrck.fooddeliveryfinal.model.entity.cart.AddCartRequest
 import com.kngrck.fooddeliveryfinal.model.entity.cart.UpdateCartOrderCountRequest
 import com.kngrck.fooddeliveryfinal.model.entity.common.BaseResponse
 import com.kngrck.fooddeliveryfinal.model.entity.favorite.AddFavoriteRestaurantRequest
+import com.kngrck.fooddeliveryfinal.model.entity.meal.AddMealRequest
 import com.kngrck.fooddeliveryfinal.model.entity.meal.Meal
 import com.kngrck.fooddeliveryfinal.model.entity.meal.MealResponse
 import com.kngrck.fooddeliveryfinal.model.entity.order.Order
@@ -45,7 +46,7 @@ interface APIService {
     @POST("restaurant/{restaurantId}/meal")
     suspend fun addMeal(
         @Path("restaurantId") restaurantId: String,
-        @Body request: Meal
+        @Body request: AddMealRequest
     ): Response<BaseResponse>
 
     @DELETE("restaurant/{restaurantId}/meal/{mealId}")

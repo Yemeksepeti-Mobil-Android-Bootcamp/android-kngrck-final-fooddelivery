@@ -4,6 +4,7 @@ package com.kngrck.fooddeliveryfinal.model.remote
 import com.kngrck.fooddeliveryfinal.model.entity.cart.AddCartRequest
 import com.kngrck.fooddeliveryfinal.model.entity.cart.UpdateCartOrderCountRequest
 import com.kngrck.fooddeliveryfinal.model.entity.favorite.AddFavoriteRestaurantRequest
+import com.kngrck.fooddeliveryfinal.model.entity.meal.AddMealRequest
 import com.kngrck.fooddeliveryfinal.model.entity.meal.Meal
 import com.kngrck.fooddeliveryfinal.model.entity.order.Order
 import com.kngrck.fooddeliveryfinal.model.entity.profile.UpdateProfileRequest
@@ -40,8 +41,8 @@ class RemoteDataSource @Inject constructor(private val apiService: APIService) :
         apiService.getMealById(id, restaurantId)
     }
 
-    suspend fun addMeal(restaurantId: String, meal: Meal) = getResult {
-        apiService.addMeal(restaurantId, meal)
+    suspend fun addMeal(restaurantId: String, addMealRequest: AddMealRequest) = getResult {
+        apiService.addMeal(restaurantId, addMealRequest)
     }
 
     suspend fun deleteMeal(restaurantId: String,mealId:String) = getResult {

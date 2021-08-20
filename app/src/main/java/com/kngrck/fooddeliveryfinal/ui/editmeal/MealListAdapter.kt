@@ -1,4 +1,4 @@
-package com.kngrck.fooddeliveryfinal.ui.editrestaurant
+package com.kngrck.fooddeliveryfinal.ui.editmeal
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

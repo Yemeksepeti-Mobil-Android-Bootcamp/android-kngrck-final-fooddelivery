@@ -5,6 +5,7 @@ import com.kngrck.fooddeliveryfinal.model.entity.cart.AddCartRequest
 import com.kngrck.fooddeliveryfinal.model.entity.cart.UpdateCartOrderCountRequest
 import com.kngrck.fooddeliveryfinal.model.entity.common.BaseResponse
 import com.kngrck.fooddeliveryfinal.model.entity.favorite.AddFavoriteRestaurantRequest
+import com.kngrck.fooddeliveryfinal.model.entity.meal.AddMealRequest
 import com.kngrck.fooddeliveryfinal.model.entity.meal.Meal
 import com.kngrck.fooddeliveryfinal.model.entity.meal.MealResponse
 import com.kngrck.fooddeliveryfinal.model.entity.order.Order
@@ -46,8 +47,8 @@ class ApiRepository @Inject constructor(
     fun getMealById(id: String, restaurantId: String): LiveData<Resource<MealResponse>> =
         performNetworkOperation { remoteDataSource.getMealById(id, restaurantId) }
 
-    fun addMeal(restaurantId: String, meal: Meal): LiveData<Resource<BaseResponse>> =
-        performNetworkOperation { remoteDataSource.addMeal(restaurantId, meal) }
+    fun addMeal(restaurantId: String, addMealRequest: AddMealRequest): LiveData<Resource<BaseResponse>> =
+        performNetworkOperation { remoteDataSource.addMeal(restaurantId, addMealRequest) }
 
     fun deleteMeal(restaurantId: String,mealId: String): LiveData<Resource<BaseResponse>> =
         performNetworkOperation { remoteDataSource.deleteMeal(restaurantId,mealId) }

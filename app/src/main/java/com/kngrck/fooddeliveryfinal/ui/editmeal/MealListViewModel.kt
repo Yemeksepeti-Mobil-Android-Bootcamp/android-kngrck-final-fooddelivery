@@ -1,4 +1,4 @@
-package com.kngrck.fooddeliveryfinal.ui.editrestaurant
+package com.kngrck.fooddeliveryfinal.ui.editmeal
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

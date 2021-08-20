@@ -1,4 +1,4 @@
-package com.kngrck.fooddeliveryfinal.ui.editrestaurant
+package com.kngrck.fooddeliveryfinal.ui.editmeal
 
 interface IOnDeleteMeal {
     fun onDeleteMeal(mealId: String)
