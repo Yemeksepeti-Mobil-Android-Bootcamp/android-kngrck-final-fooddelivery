@@ -39,12 +39,15 @@ class RemoteDataSource @Inject constructor(private val apiService: APIService) :
     }
 
     //ORDER
-    suspend fun getLastOrdersOfUser() = getResult {
-        apiService.getLastOrdersOfUser()
-    }
+
 
     suspend fun addOrder(order: Order) = getResult {
         apiService.addOrder(order)
+    }
+
+    //PROFILE
+    suspend fun getProfile() = getResult {
+        apiService.getProfile()
     }
 
     //CART

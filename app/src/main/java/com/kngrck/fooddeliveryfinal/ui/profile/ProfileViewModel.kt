@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.kngrck.fooddeliveryfinal.model.ApiRepository
 import com.kngrck.fooddeliveryfinal.model.entity.order.OrderListResponse
+import com.kngrck.fooddeliveryfinal.model.entity.profile.Profile
+import com.kngrck.fooddeliveryfinal.model.entity.profile.ProfileResponse
 import com.kngrck.fooddeliveryfinal.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -12,8 +14,8 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     private val apiRepository: ApiRepository
 ) : ViewModel() {
-    fun getLastOrdersOfUser(): LiveData<Resource<OrderListResponse>> =
-        apiRepository.getLastOrdersOfUser()
+    fun getProfile(): LiveData<Resource<ProfileResponse>> =
+        apiRepository.getProfile()
 
     fun logOut() {
         apiRepository.removeToken()
