@@ -75,6 +75,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_userDetailsFragment"
             app:destination="@id/userDetailsFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_restaurantListFragment"
+            app:destination="@id/restaurantListFragment" />
     </fragment>
     <fragment
         android:id="@+id/userDetailsFragment"
@@ -82,6 +85,24 @@
         android:label="UserDetailsFragment" >
         <action
             android:id="@+id/action_userDetailsFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/restaurantListFragment"
+        android:name="com.kngrck.fooddeliveryfinal.ui.editrestaurant.RestaurantListFragment"
+        android:label="fragment_restaurant_list"
+        tools:layout="@layout/fragment_restaurant_list" >
+        <action
+            android:id="@+id/action_restaurantListFragment_to_addRestaurantFragment"
+            app:destination="@id/addRestaurantFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addRestaurantFragment"
+        android:name="com.kngrck.fooddeliveryfinal.ui.editrestaurant.AddRestaurantFragment"
+        android:label="fragment_add_restaurant"
+        tools:layout="@layout/fragment_add_restaurant" >
+        <action
+            android:id="@+id/action_addRestaurantFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
     </fragment>
 </navigation>

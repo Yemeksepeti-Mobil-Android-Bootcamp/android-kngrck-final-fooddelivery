@@ -11,6 +11,7 @@ import com.kngrck.fooddeliveryfinal.model.entity.order.OrderListResponse
 import com.kngrck.fooddeliveryfinal.model.entity.profile.Profile
 import com.kngrck.fooddeliveryfinal.model.entity.profile.ProfileResponse
 import com.kngrck.fooddeliveryfinal.model.entity.profile.UpdateProfileRequest
+import com.kngrck.fooddeliveryfinal.model.entity.restaurant.AddRestaurantRequest
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.Restaurant
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.RestaurantListResponse
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.RestaurantResponse
@@ -31,7 +32,10 @@ interface APIService {
     suspend fun getRestaurantById(@Path("id") id: String): Response<RestaurantResponse>
 
     @POST("restaurant")
-    suspend fun addRestaurant(@Body request: Restaurant): Response<BaseResponse>
+    suspend fun addRestaurant(@Body request: AddRestaurantRequest): Response<BaseResponse>
+
+    @DELETE("restaurant/{restaurantId}")
+    suspend fun deleteRestaurant(@Path("restaurantId") restaurantId: String): Response<BaseResponse>
 
     //MEAL
     @GET("restaurant/{restaurantId}/meal/{id}")

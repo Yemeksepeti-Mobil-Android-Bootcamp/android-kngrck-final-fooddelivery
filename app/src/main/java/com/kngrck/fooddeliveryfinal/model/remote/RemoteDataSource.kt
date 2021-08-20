@@ -7,6 +7,7 @@ import com.kngrck.fooddeliveryfinal.model.entity.favorite.AddFavoriteRestaurantR
 import com.kngrck.fooddeliveryfinal.model.entity.meal.Meal
 import com.kngrck.fooddeliveryfinal.model.entity.order.Order
 import com.kngrck.fooddeliveryfinal.model.entity.profile.UpdateProfileRequest
+import com.kngrck.fooddeliveryfinal.model.entity.restaurant.AddRestaurantRequest
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.Restaurant
 import com.kngrck.fooddeliveryfinal.utils.BaseDataSource
 import javax.inject.Inject
@@ -26,8 +27,12 @@ class RemoteDataSource @Inject constructor(private val apiService: APIService) :
         apiService.getRestaurantById(id)
     }
 
-    suspend fun addRestaurant(restaurant: Restaurant) = getResult {
-        apiService.addRestaurant(restaurant)
+    suspend fun addRestaurant(addRestaurantRequest: AddRestaurantRequest) = getResult {
+        apiService.addRestaurant(addRestaurantRequest)
+    }
+
+    suspend fun deleteRestaurant(restaurantId: String) = getResult {
+        apiService.deleteRestaurant(restaurantId)
     }
 
     //MEAL

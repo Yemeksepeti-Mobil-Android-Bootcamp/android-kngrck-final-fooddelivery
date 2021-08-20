@@ -55,6 +55,9 @@ class SettingsFragment : Fragment() {
             backButton.setOnClickListener {
                 findNavController().popBackStack()
             }
+            addRestaurantCardView.setOnClickListener {
+                findNavController().navigate(R.id.action_settingsFragment_to_restaurantListFragment)
+            }
             changeUserDetailsCardView.setOnClickListener {
                 findNavController().navigate(R.id.action_settingsFragment_to_userDetailsFragment)
             }
