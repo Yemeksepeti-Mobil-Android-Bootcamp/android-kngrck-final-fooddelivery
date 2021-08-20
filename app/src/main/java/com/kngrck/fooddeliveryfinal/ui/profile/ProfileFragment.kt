@@ -1,6 +1,5 @@
 package com.kngrck.fooddeliveryfinal.ui.profile
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,13 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.kngrck.fooddeliveryfinal.R
 import com.kngrck.fooddeliveryfinal.databinding.FragmentProfileBinding
-import com.kngrck.fooddeliveryfinal.ui.StartActivity
-import com.kngrck.fooddeliveryfinal.utils.FirebaseAuthManager
 import com.kngrck.fooddeliveryfinal.utils.Resource
 import com.kngrck.fooddeliveryfinal.utils.gone
 import com.kngrck.fooddeliveryfinal.utils.show
@@ -25,6 +23,7 @@ class ProfileFragment : Fragment() {
     private lateinit var _binding: FragmentProfileBinding
     private val viewModel: ProfileViewModel by viewModels()
     private var adapter: LastOrdersAdapter = LastOrdersAdapter()
+    private var userType: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,12 +41,15 @@ class ProfileFragment : Fragment() {
     private fun initViews() {
 
         _binding.settingsButton.setOnClickListener {
-            viewModel.logOut()
-            FirebaseAuthManager.signOut()
-            val intent = Intent(context, StartActivity::class.java)
-            startActivity(intent)
-            requireActivity().finish()
+            userType?.let {
+                val action = ProfileFragmentDirections.actionProfileFragmentToSettingsFragment(
+                    it
+                )
+                findNavController().navigate(action)
+            }
+
         }
+
         viewModel.getProfile().observe(viewLifecycleOwner, {
             when (it.status) {
                 Resource.Status.LOADING -> {
@@ -58,7 +60,8 @@ class ProfileFragment : Fragment() {
                     _binding.mainLayout.show()
                     _binding.progressBar.gone()
                     val profile = it.data!!.data
-                    Log.v("Profile","profile $profile")
+                    userType = profile.type
+                    Log.v("Profile", "profile $profile")
                     adapter.setOrders(profile.orders)
 
                     with(_binding) {

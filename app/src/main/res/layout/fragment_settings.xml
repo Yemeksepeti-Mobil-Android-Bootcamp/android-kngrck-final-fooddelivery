@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".ui.settings.SettingsFragment">
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/backButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="16dp"
+        android:background="@null"
+        android:src="@drawable/ic_back" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/addRestaurantCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:elevation="0dp"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:visibility="gone"
+        app:cardBackgroundColor="@color/light_gray"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="0dp"
+        app:contentPadding="16dp">
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Add Restaurant"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/addMealCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:elevation="0dp"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:visibility="gone"
+        app:cardBackgroundColor="@color/light_gray"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="0dp"
+        app:contentPadding="16dp">
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Add Meal"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/changeUserDetailsCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:elevation="0dp"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/light_gray"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="0dp"
+        app:contentPadding="16dp">
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Change User Details"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/logoutCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:elevation="0dp"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/light_gray"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="0dp"
+        app:contentPadding="16dp">
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Log out"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+    </androidx.cardview.widget.CardView>
+
+
+</LinearLayout>
