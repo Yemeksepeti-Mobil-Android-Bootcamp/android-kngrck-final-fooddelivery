@@ -10,6 +10,7 @@ import com.kngrck.fooddeliveryfinal.model.entity.order.Order
 import com.kngrck.fooddeliveryfinal.model.entity.order.OrderListResponse
 import com.kngrck.fooddeliveryfinal.model.entity.profile.Profile
 import com.kngrck.fooddeliveryfinal.model.entity.profile.ProfileResponse
+import com.kngrck.fooddeliveryfinal.model.entity.profile.UpdateProfileRequest
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.Restaurant
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.RestaurantListResponse
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.RestaurantResponse
@@ -52,6 +53,9 @@ interface APIService {
     //PROFILE
     @GET("profile")
     suspend fun getProfile(): Response<ProfileResponse>
+
+    @PUT("profile")
+    suspend fun updateProfile(@Body request: UpdateProfileRequest): Response<BaseResponse>
 
     //CART
     @GET("cart")

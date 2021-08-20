@@ -45,7 +45,11 @@
         android:id="@+id/profileFragment"
         android:name="com.kngrck.fooddeliveryfinal.ui.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.kngrck.fooddeliveryfinal.ui.cart.CartFragment"
@@ -60,4 +64,24 @@
         android:name="com.kngrck.fooddeliveryfinal.ui.favorite.FavoriteFragment"
         android:label="fragment_favorite"
         tools:layout="@layout/fragment_favorite" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.kngrck.fooddeliveryfinal.ui.settings.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
+        <argument
+            android:name="userType"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_settingsFragment_to_userDetailsFragment"
+            app:destination="@id/userDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userDetailsFragment"
+        android:name="com.kngrck.fooddeliveryfinal.ui.settings.UserDetailsFragment"
+        android:label="UserDetailsFragment" >
+        <action
+            android:id="@+id/action_userDetailsFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
 </navigation>

@@ -11,6 +11,7 @@ import com.kngrck.fooddeliveryfinal.model.entity.order.Order
 import com.kngrck.fooddeliveryfinal.model.entity.order.OrderListResponse
 import com.kngrck.fooddeliveryfinal.model.entity.profile.Profile
 import com.kngrck.fooddeliveryfinal.model.entity.profile.ProfileResponse
+import com.kngrck.fooddeliveryfinal.model.entity.profile.UpdateProfileRequest
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.Restaurant
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.RestaurantListResponse
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.RestaurantResponse
@@ -53,6 +54,9 @@ class ApiRepository @Inject constructor(
     //PROFILE
     fun getProfile(): LiveData<Resource<ProfileResponse>> =
         performNetworkOperation { remoteDataSource.getProfile() }
+
+    fun updateProfile(updateProfileRequest: UpdateProfileRequest): LiveData<Resource<BaseResponse>> =
+        performNetworkOperation { remoteDataSource.updateProfile(updateProfileRequest) }
 
     //CART
     fun addToCart(addCartRequest: AddCartRequest): LiveData<Resource<BaseResponse>> =

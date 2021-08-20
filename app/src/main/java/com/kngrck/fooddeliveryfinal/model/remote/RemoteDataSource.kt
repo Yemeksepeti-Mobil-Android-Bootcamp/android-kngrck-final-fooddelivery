@@ -6,6 +6,7 @@ import com.kngrck.fooddeliveryfinal.model.entity.cart.UpdateCartOrderCountReques
 import com.kngrck.fooddeliveryfinal.model.entity.favorite.AddFavoriteRestaurantRequest
 import com.kngrck.fooddeliveryfinal.model.entity.meal.Meal
 import com.kngrck.fooddeliveryfinal.model.entity.order.Order
+import com.kngrck.fooddeliveryfinal.model.entity.profile.UpdateProfileRequest
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.Restaurant
 import com.kngrck.fooddeliveryfinal.utils.BaseDataSource
 import javax.inject.Inject
@@ -48,6 +49,10 @@ class RemoteDataSource @Inject constructor(private val apiService: APIService) :
     //PROFILE
     suspend fun getProfile() = getResult {
         apiService.getProfile()
+    }
+
+    suspend fun updateProfile(updateProfileRequest: UpdateProfileRequest) = getResult {
+        apiService.updateProfile(updateProfileRequest)
     }
 
     //CART
