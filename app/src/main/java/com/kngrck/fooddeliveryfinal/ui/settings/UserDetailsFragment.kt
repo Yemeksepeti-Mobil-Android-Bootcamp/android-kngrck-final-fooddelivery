@@ -77,29 +77,36 @@ class UserDetailsFragment : Fragment() {
                 val name = userNameTextInput.editText?.text.toString()
                 val phone = userPhoneTextInput.editText?.text.toString()
                 val profileImage = userProfileImageTextInput.editText?.text.toString()
-                val updateProfileRequest = UpdateProfileRequest(name, phone, profileImage)
-                viewModel.updateProfile(updateProfileRequest).observe(viewLifecycleOwner, {
-                    when (it.status) {
+                if (name.isNotEmpty() && phone.isNotEmpty() && profileImage.isNotEmpty()) {
+                    val updateProfileRequest = UpdateProfileRequest(name, phone, profileImage)
+                    viewModel.updateProfile(updateProfileRequest).observe(viewLifecycleOwner, {
+                        when (it.status) {
 
-                        Resource.Status.LOADING -> {
-                            mainLayout.gone()
-                            progressBar.show()
-                        }
-                        Resource.Status.SUCCESS -> {
-                            findNavController().navigate(R.id.action_userDetailsFragment_to_profileFragment)
-                        }
+                            Resource.Status.LOADING -> {
+                                mainLayout.gone()
+                                progressBar.show()
+                            }
+                            Resource.Status.SUCCESS -> {
+                                findNavController().navigate(R.id.action_userDetailsFragment_to_profileFragment)
+                            }
 
-                        Resource.Status.ERROR -> {
-                            mainLayout.show()
-                            progressBar.gone()
-                            Log.v("Home", "Error")
+                            Resource.Status.ERROR -> {
+                                mainLayout.show()
+                                progressBar.gone()
+                                Log.v("Home", "Error")
+                            }
                         }
-                    }
-                })
+                    })
 
+                } else {
+
+                    if (name.isEmpty()) _binding.userNameTextInput.error = "Do not leave blank."
+                    if (phone.isEmpty()) _binding.userPhoneTextInput.error = "Do not leave blank."
+                    if (profileImage.isEmpty()) _binding.userPhoneTextInput.error = "Do not leave blank."
+                }
             }
-        }
 
+        }
     }
 
 }

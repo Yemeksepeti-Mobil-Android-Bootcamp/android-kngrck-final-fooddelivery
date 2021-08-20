@@ -1,4 +1,4 @@
-package com.kngrck.fooddeliveryfinal.ui.restaurant
+package com.kngrck.fooddeliveryfinal.ui.editmeal
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,41 +6,40 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.kngrck.fooddeliveryfinal.R
-import com.kngrck.fooddeliveryfinal.databinding.ItemMealBinding
+import com.kngrck.fooddeliveryfinal.databinding.ItemEditMealBinding
 import com.kngrck.fooddeliveryfinal.model.entity.meal.Meal
 
-class MealsAdapter : RecyclerView.Adapter<MealsAdapter.MealsViewHolder>() {
+class MealListAdapter : RecyclerView.Adapter<MealListAdapter.MealListViewHolder>() {
     private var meals = ArrayList<Meal>()
-    private var listener: IMealOnClick? = null
+    private var listener: IOnDeleteMeal? = null
 
-    inner class MealsViewHolder(val binding: ItemMealBinding) :
+    inner class MealListViewHolder(val binding: ItemEditMealBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MealsViewHolder {
-        val binding = ItemMealBinding
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MealListViewHolder {
+        val binding = ItemEditMealBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
-        return MealsViewHolder(binding)
+        return MealListViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: MealsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MealListViewHolder, position: Int) {
         val meal = meals[position]
         with(holder) {
             with(binding) {
 
-                mealNameTextView.text = meal.name
-                mealPrice.text = String.format("%.2f", meal.price) + " TL"
+                mealName.text = meal.name
 
                 val options = RequestOptions().placeholder(R.drawable.ic_burger)
                 Glide.with(mealImageView.context)
                     .applyDefaultRequestOptions(options)
                     .load(meal.imageUrl).into(mealImageView)
+
+                deleteMealButton.setOnClickListener {
+                    meals.remove(meal)
+                    listener?.onDeleteMeal(meal.id)
+                    notifyDataSetChanged()
+                }
             }
-
-            itemView.setOnClickListener {
-                listener?.onClick(meal)
-
-            }
-
         }
     }
 
@@ -49,7 +48,7 @@ class MealsAdapter : RecyclerView.Adapter<MealsAdapter.MealsViewHolder>() {
         notifyDataSetChanged()
     }
 
-    fun setListener(listener: IMealOnClick) {
+    fun setListener(listener: IOnDeleteMeal) {
         this.listener = listener
     }
 

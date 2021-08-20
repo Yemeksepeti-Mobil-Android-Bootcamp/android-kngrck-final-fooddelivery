@@ -4,14 +4,14 @@ import com.kngrck.fooddeliveryfinal.model.entity.cart.AddCartRequest
 import com.kngrck.fooddeliveryfinal.model.entity.cart.UpdateCartOrderCountRequest
 import com.kngrck.fooddeliveryfinal.model.entity.common.BaseResponse
 import com.kngrck.fooddeliveryfinal.model.entity.favorite.AddFavoriteRestaurantRequest
+import com.kngrck.fooddeliveryfinal.model.entity.meal.AddMealRequest
 import com.kngrck.fooddeliveryfinal.model.entity.meal.Meal
 import com.kngrck.fooddeliveryfinal.model.entity.meal.MealResponse
 import com.kngrck.fooddeliveryfinal.model.entity.order.Order
 import com.kngrck.fooddeliveryfinal.model.entity.order.OrderListResponse
-import com.kngrck.fooddeliveryfinal.model.entity.profile.Profile
 import com.kngrck.fooddeliveryfinal.model.entity.profile.ProfileResponse
 import com.kngrck.fooddeliveryfinal.model.entity.profile.UpdateProfileRequest
-import com.kngrck.fooddeliveryfinal.model.entity.restaurant.Restaurant
+import com.kngrck.fooddeliveryfinal.model.entity.restaurant.AddRestaurantRequest
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.RestaurantListResponse
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.RestaurantResponse
 import retrofit2.Response
@@ -31,7 +31,10 @@ interface APIService {
     suspend fun getRestaurantById(@Path("id") id: String): Response<RestaurantResponse>
 
     @POST("restaurant")
-    suspend fun addRestaurant(@Body request: Restaurant): Response<BaseResponse>
+    suspend fun addRestaurant(@Body request: AddRestaurantRequest): Response<BaseResponse>
+
+    @DELETE("restaurant/{restaurantId}")
+    suspend fun deleteRestaurant(@Path("restaurantId") restaurantId: String): Response<BaseResponse>
 
     //MEAL
     @GET("restaurant/{restaurantId}/meal/{id}")
@@ -43,7 +46,13 @@ interface APIService {
     @POST("restaurant/{restaurantId}/meal")
     suspend fun addMeal(
         @Path("restaurantId") restaurantId: String,
-        @Body request: Meal
+        @Body request: AddMealRequest
+    ): Response<BaseResponse>
+
+    @DELETE("restaurant/{restaurantId}/meal/{mealId}")
+    suspend fun deleteMeal(
+        @Path("restaurantId") restaurantId: String,
+        @Path("mealId") mealId: String
     ): Response<BaseResponse>
 
     //ORDER

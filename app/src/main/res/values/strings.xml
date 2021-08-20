@@ -2,4 +2,15 @@
     <string name="app_name">Food Delivery Final</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="categories">
+        <item>Burger</item>
+        <item>Pizza</item>
+        <item>Kebab</item>
+        <item>World</item>
+        <item>Eastern</item>
+        <item>Seafood</item>
+        <item>Dessert</item>
+        <item>Other</item>
+    </string-array>
 </resources>

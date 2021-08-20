@@ -5,6 +5,7 @@ import com.kngrck.fooddeliveryfinal.model.entity.cart.AddCartRequest
 import com.kngrck.fooddeliveryfinal.model.entity.cart.UpdateCartOrderCountRequest
 import com.kngrck.fooddeliveryfinal.model.entity.common.BaseResponse
 import com.kngrck.fooddeliveryfinal.model.entity.favorite.AddFavoriteRestaurantRequest
+import com.kngrck.fooddeliveryfinal.model.entity.meal.AddMealRequest
 import com.kngrck.fooddeliveryfinal.model.entity.meal.Meal
 import com.kngrck.fooddeliveryfinal.model.entity.meal.MealResponse
 import com.kngrck.fooddeliveryfinal.model.entity.order.Order
@@ -12,6 +13,7 @@ import com.kngrck.fooddeliveryfinal.model.entity.order.OrderListResponse
 import com.kngrck.fooddeliveryfinal.model.entity.profile.Profile
 import com.kngrck.fooddeliveryfinal.model.entity.profile.ProfileResponse
 import com.kngrck.fooddeliveryfinal.model.entity.profile.UpdateProfileRequest
+import com.kngrck.fooddeliveryfinal.model.entity.restaurant.AddRestaurantRequest
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.Restaurant
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.RestaurantListResponse
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.RestaurantResponse
@@ -35,15 +37,21 @@ class ApiRepository @Inject constructor(
     fun getRestaurantById(id: String): LiveData<Resource<RestaurantResponse>> =
         performNetworkOperation { remoteDataSource.getRestaurantById(id) }
 
-    fun addRestaurant(restaurant: Restaurant): LiveData<Resource<BaseResponse>> =
-        performNetworkOperation { remoteDataSource.addRestaurant(restaurant) }
+    fun addRestaurant(addRestaurantRequest: AddRestaurantRequest): LiveData<Resource<BaseResponse>> =
+        performNetworkOperation { remoteDataSource.addRestaurant(addRestaurantRequest) }
+
+    fun deleteRestaurant(restaurantId: String): LiveData<Resource<BaseResponse>> =
+        performNetworkOperation { remoteDataSource.deleteRestaurant(restaurantId) }
 
     //MEAL
     fun getMealById(id: String, restaurantId: String): LiveData<Resource<MealResponse>> =
         performNetworkOperation { remoteDataSource.getMealById(id, restaurantId) }
 
-    fun addMeal(restaurantId: String, meal: Meal): LiveData<Resource<BaseResponse>> =
-        performNetworkOperation { remoteDataSource.addMeal(restaurantId, meal) }
+    fun addMeal(restaurantId: String, addMealRequest: AddMealRequest): LiveData<Resource<BaseResponse>> =
+        performNetworkOperation { remoteDataSource.addMeal(restaurantId, addMealRequest) }
+
+    fun deleteMeal(restaurantId: String,mealId: String): LiveData<Resource<BaseResponse>> =
+        performNetworkOperation { remoteDataSource.deleteMeal(restaurantId,mealId) }
 
     //ORDER
 

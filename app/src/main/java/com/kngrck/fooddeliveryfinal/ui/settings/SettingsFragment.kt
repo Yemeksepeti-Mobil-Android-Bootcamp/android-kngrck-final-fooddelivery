@@ -39,14 +39,11 @@ class SettingsFragment : Fragment() {
     }
 
     private fun initViews() {
-        with(_binding) {
-            if (args.userType == "admin") {
-                addMealCardView.show()
-                addRestaurantCardView.show()
-            } else {
-                addMealCardView.gone()
-                addRestaurantCardView.gone()
-            }
+
+        if (args.userType == "admin") {
+            _binding.editRestaurantCardView.show()
+        } else {
+            _binding.editRestaurantCardView.gone()
         }
     }
 
@@ -54,6 +51,9 @@ class SettingsFragment : Fragment() {
         with(_binding) {
             backButton.setOnClickListener {
                 findNavController().popBackStack()
+            }
+            editRestaurantCardView.setOnClickListener {
+                findNavController().navigate(R.id.action_settingsFragment_to_restaurantListFragment)
             }
             changeUserDetailsCardView.setOnClickListener {
                 findNavController().navigate(R.id.action_settingsFragment_to_userDetailsFragment)
