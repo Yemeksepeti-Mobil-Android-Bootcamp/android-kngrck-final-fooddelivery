@@ -95,6 +95,9 @@
         <action
             android:id="@+id/action_restaurantListFragment_to_addRestaurantFragment"
             app:destination="@id/addRestaurantFragment" />
+        <action
+            android:id="@+id/action_restaurantListFragment_to_mealListFragment"
+            app:destination="@id/mealListFragment" />
     </fragment>
     <fragment
         android:id="@+id/addRestaurantFragment"
@@ -103,6 +106,18 @@
         tools:layout="@layout/fragment_add_restaurant" >
         <action
             android:id="@+id/action_addRestaurantFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mealListFragment"
+        android:name="com.kngrck.fooddeliveryfinal.ui.editrestaurant.MealListFragment"
+        android:label="fragment_meal_list"
+        tools:layout="@layout/fragment_meal_list" >
+        <argument
+            android:name="restaurantId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_mealListFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
     </fragment>
 </navigation>

@@ -43,7 +43,7 @@
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/restaurantImageView"
                         android:layout_width="match_parent"
-                        android:layout_height="400dp"
+                        android:layout_height="300dp"
                         android:layout_marginBottom="?android:attr/actionBarSize"
                         android:src="@drawable/ic_burger"
                         app:layout_collapseMode="parallax" />

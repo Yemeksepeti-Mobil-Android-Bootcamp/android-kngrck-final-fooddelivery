@@ -44,6 +44,10 @@ class RemoteDataSource @Inject constructor(private val apiService: APIService) :
         apiService.addMeal(restaurantId, meal)
     }
 
+    suspend fun deleteMeal(restaurantId: String,mealId:String) = getResult {
+        apiService.deleteMeal(restaurantId, mealId)
+    }
+
     //ORDER
 
 

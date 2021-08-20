@@ -49,6 +49,9 @@ class ApiRepository @Inject constructor(
     fun addMeal(restaurantId: String, meal: Meal): LiveData<Resource<BaseResponse>> =
         performNetworkOperation { remoteDataSource.addMeal(restaurantId, meal) }
 
+    fun deleteMeal(restaurantId: String,mealId: String): LiveData<Resource<BaseResponse>> =
+        performNetworkOperation { remoteDataSource.deleteMeal(restaurantId,mealId) }
+
     //ORDER
 
 

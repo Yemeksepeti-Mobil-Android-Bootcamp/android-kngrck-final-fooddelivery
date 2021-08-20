@@ -8,11 +8,9 @@ import com.kngrck.fooddeliveryfinal.model.entity.meal.Meal
 import com.kngrck.fooddeliveryfinal.model.entity.meal.MealResponse
 import com.kngrck.fooddeliveryfinal.model.entity.order.Order
 import com.kngrck.fooddeliveryfinal.model.entity.order.OrderListResponse
-import com.kngrck.fooddeliveryfinal.model.entity.profile.Profile
 import com.kngrck.fooddeliveryfinal.model.entity.profile.ProfileResponse
 import com.kngrck.fooddeliveryfinal.model.entity.profile.UpdateProfileRequest
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.AddRestaurantRequest
-import com.kngrck.fooddeliveryfinal.model.entity.restaurant.Restaurant
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.RestaurantListResponse
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.RestaurantResponse
 import retrofit2.Response
@@ -48,6 +46,12 @@ interface APIService {
     suspend fun addMeal(
         @Path("restaurantId") restaurantId: String,
         @Body request: Meal
+    ): Response<BaseResponse>
+
+    @DELETE("restaurant/{restaurantId}/meal/{mealId}")
+    suspend fun deleteMeal(
+        @Path("restaurantId") restaurantId: String,
+        @Path("mealId") mealId: String
     ): Response<BaseResponse>
 
     //ORDER

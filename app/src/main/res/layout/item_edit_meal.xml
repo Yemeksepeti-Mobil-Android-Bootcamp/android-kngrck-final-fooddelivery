@@ -2,13 +2,10 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/restaurantItemCardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="16dp"
-    android:clickable="true"
     android:elevation="0dp"
-    android:focusable="true"
     app:cardBackgroundColor="@color/light_gray"
     app:cardCornerRadius="24dp"
     app:cardElevation="0dp"
@@ -19,7 +16,7 @@
         android:layout_height="match_parent">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/restaurantImageView"
+            android:id="@+id/mealImageView"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/ic_burger"
@@ -29,23 +26,23 @@
 
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/restaurantNameTextView"
+            android:id="@+id/mealName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
             android:fontFamily="@font/poppins_medium"
+            android:layout_marginHorizontal="16dp"
             android:maxLines="2"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/restaurantImageView"
-            app:layout_constraintRight_toLeftOf="@id/deleteRestaurantButton"
+            app:layout_constraintLeft_toRightOf="@id/mealImageView"
+            app:layout_constraintRight_toLeftOf="@id/deleteMealButton"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Name" />
 
 
         <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/deleteRestaurantButton"
+            android:id="@+id/deleteMealButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@null"

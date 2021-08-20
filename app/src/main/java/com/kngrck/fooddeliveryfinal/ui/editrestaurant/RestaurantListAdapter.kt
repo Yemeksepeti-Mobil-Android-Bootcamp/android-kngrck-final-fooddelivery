@@ -2,6 +2,7 @@ package com.kngrck.fooddeliveryfinal.ui.editrestaurant
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -34,6 +35,14 @@ class RestaurantListAdapter :
                 Glide.with(restaurantImageView.context)
                     .applyDefaultRequestOptions(options)
                     .load(restaurant.imageUrl).into(restaurantImageView)
+
+                restaurantItemCardView.setOnClickListener {
+                    val action =
+                        RestaurantListFragmentDirections.actionRestaurantListFragmentToMealListFragment(
+                            restaurant.id
+                        )
+                    itemView.findNavController().navigate(action)
+                }
 
                 deleteRestaurantButton.setOnClickListener {
                     restaurantList.remove(restaurant)
