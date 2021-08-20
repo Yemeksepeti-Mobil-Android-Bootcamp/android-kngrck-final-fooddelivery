@@ -37,7 +37,6 @@ class LastOrdersAdapter : RecyclerView.Adapter<LastOrdersAdapter.LastOrdersViewH
                     orderDateTextView.text = ""
                 }
 
-
                 mealNameTextView.text = order.mealName
                 restaurantNameTextView.text = order.restaurantName
 

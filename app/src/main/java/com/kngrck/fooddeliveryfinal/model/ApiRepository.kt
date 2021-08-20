@@ -9,6 +9,8 @@ import com.kngrck.fooddeliveryfinal.model.entity.meal.Meal
 import com.kngrck.fooddeliveryfinal.model.entity.meal.MealResponse
 import com.kngrck.fooddeliveryfinal.model.entity.order.Order
 import com.kngrck.fooddeliveryfinal.model.entity.order.OrderListResponse
+import com.kngrck.fooddeliveryfinal.model.entity.profile.Profile
+import com.kngrck.fooddeliveryfinal.model.entity.profile.ProfileResponse
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.Restaurant
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.RestaurantListResponse
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.RestaurantResponse
@@ -43,14 +45,16 @@ class ApiRepository @Inject constructor(
         performNetworkOperation { remoteDataSource.addMeal(restaurantId, meal) }
 
     //ORDER
-    fun getLastOrdersOfUser(): LiveData<Resource<OrderListResponse>> =
-        performNetworkOperation { remoteDataSource.getLastOrdersOfUser() }
+
 
     fun addOrder(order: Order): LiveData<Resource<BaseResponse>> =
         performNetworkOperation { remoteDataSource.addOrder(order) }
 
-    //CART
+    //PROFILE
+    fun getProfile(): LiveData<Resource<ProfileResponse>> =
+        performNetworkOperation { remoteDataSource.getProfile() }
 
+    //CART
     fun addToCart(addCartRequest: AddCartRequest): LiveData<Resource<BaseResponse>> =
         performNetworkOperation { remoteDataSource.addToCart(addCartRequest) }
 

@@ -8,6 +8,8 @@ import com.kngrck.fooddeliveryfinal.model.entity.meal.Meal
 import com.kngrck.fooddeliveryfinal.model.entity.meal.MealResponse
 import com.kngrck.fooddeliveryfinal.model.entity.order.Order
 import com.kngrck.fooddeliveryfinal.model.entity.order.OrderListResponse
+import com.kngrck.fooddeliveryfinal.model.entity.profile.Profile
+import com.kngrck.fooddeliveryfinal.model.entity.profile.ProfileResponse
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.Restaurant
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.RestaurantListResponse
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.RestaurantResponse
@@ -44,11 +46,12 @@ interface APIService {
     ): Response<BaseResponse>
 
     //ORDER
-    @GET("orders")
-    suspend fun getLastOrdersOfUser(): Response<OrderListResponse>
-
     @POST("order")
     suspend fun addOrder(@Body request: Order): Response<BaseResponse>
+
+    //PROFILE
+    @GET("profile")
+    suspend fun getProfile(): Response<ProfileResponse>
 
     //CART
     @GET("cart")
