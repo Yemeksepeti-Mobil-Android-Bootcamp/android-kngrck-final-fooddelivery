@@ -38,46 +38,61 @@ class FavoriteFragment : Fragment(), IOnDeleteRestaurant {
         adapter.setListener(this)
         _binding.favRestaurantsRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        getFavRestaurantAndSetViews()
+
+    }
+
+    private fun getFavRestaurantAndSetViews() {
         viewModel.getFavoriteRestaurants().observe(viewLifecycleOwner, {
             when (it.status) {
 
                 Resource.Status.LOADING -> {
-                    Log.v("Favorite", "Loading")
-
+                    setLoading(true)
                 }
                 Resource.Status.SUCCESS -> {
-                    Log.v("Favorite", "Success")
+                    setLoading(false)
+
                     val favRestaurants = it.data?.data!!
+
                     if (favRestaurants.size == 0) _binding.noDataTextView.show()
                     else _binding.noDataTextView.gone()
+
                     adapter.setFavRestaurants(favRestaurants)
                     _binding.favRestaurantsRecyclerView.adapter = adapter
                 }
                 Resource.Status.ERROR -> {
-
+                    setLoading(false)
                     showErrorToast(requireContext())
                 }
             }
         })
-
     }
 
     override fun onDeleteRestaurant(restaurantId: String) {
         Log.v("Favorite", "restaurant id $restaurantId")
         viewModel.deleteFavoriteRestaurant(restaurantId).observe(viewLifecycleOwner, {
             when (it.status) {
-
                 Resource.Status.LOADING -> {
-                    Log.v("Favorite", "Delete Loading")
                 }
                 Resource.Status.SUCCESS -> {
-                    Log.v("Favorite", "Delete Success")
                 }
                 Resource.Status.ERROR -> {
                     showErrorToast(requireContext(), "Failed to delete restaurant.")
                 }
             }
         })
+    }
+
+    private fun setLoading(isLoading: Boolean) {
+        with(_binding) {
+            if (isLoading) {
+                favRestaurantsRecyclerView.gone()
+                progressBar.show()
+            } else {
+                favRestaurantsRecyclerView.show()
+                progressBar.gone()
+            }
+        }
     }
 
     override fun onDestroy() {

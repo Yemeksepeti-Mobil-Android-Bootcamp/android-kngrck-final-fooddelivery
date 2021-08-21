@@ -14,10 +14,8 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     private val apiRepository: ApiRepository
 ) : ViewModel() {
+
     fun getProfile(): LiveData<Resource<ProfileResponse>> =
         apiRepository.getProfile()
 
-    fun logOut() {
-        apiRepository.removeToken()
-    }
 }

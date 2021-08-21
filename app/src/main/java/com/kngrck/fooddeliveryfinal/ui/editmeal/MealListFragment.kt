@@ -42,19 +42,15 @@ class MealListFragment : Fragment(), IOnDeleteMeal {
         viewModel.getRestaurantMeals(args.restaurantId).observe(viewLifecycleOwner, { resource ->
             when (resource.status) {
                 Resource.Status.LOADING -> {
-                    _binding.mealsRecyclerView.gone()
-                    _binding.progressBar.show()
+                    setLoading(true)
                 }
                 Resource.Status.SUCCESS -> {
-
-                    _binding.mealsRecyclerView.show()
-                    _binding.progressBar.gone()
+                    setLoading(false)
 
                     val restaurant = resource.data?.data!!
                     restaurant.meals?.let {
                         mealListAdapter.setMeals(it)
                         mealListAdapter.setListener(this)
-
 
                         with(_binding) {
 
@@ -63,12 +59,9 @@ class MealListFragment : Fragment(), IOnDeleteMeal {
                             mealsRecyclerView.adapter = mealListAdapter
                         }
                     }
-
                 }
                 Resource.Status.ERROR -> {
-
-                    _binding.mealsRecyclerView.show()
-                    _binding.progressBar.gone()
+                    setLoading(false)
                     showErrorToast(requireContext())
                 }
             }
@@ -92,19 +85,10 @@ class MealListFragment : Fragment(), IOnDeleteMeal {
         viewModel.deleteMeal(args.restaurantId, mealId).observe(viewLifecycleOwner, {
             when (it.status) {
                 Resource.Status.LOADING -> {
-                    _binding.mealsRecyclerView.gone()
-                    _binding.progressBar.show()
                 }
                 Resource.Status.SUCCESS -> {
-
-                    _binding.mealsRecyclerView.show()
-                    _binding.progressBar.gone()
-
                 }
                 Resource.Status.ERROR -> {
-
-                    _binding.mealsRecyclerView.show()
-                    _binding.progressBar.gone()
                     showErrorToast(
                         requireContext(),
                         "Failed to delete meal. Please try again later."
@@ -114,5 +98,16 @@ class MealListFragment : Fragment(), IOnDeleteMeal {
         })
     }
 
+    private fun setLoading(isLoading: Boolean) {
+        with(_binding) {
+            if (isLoading) {
+                mealsRecyclerView.gone()
+                progressBar.show()
+            } else {
+                mealsRecyclerView.show()
+                progressBar.gone()
+            }
+        }
+    }
 
 }

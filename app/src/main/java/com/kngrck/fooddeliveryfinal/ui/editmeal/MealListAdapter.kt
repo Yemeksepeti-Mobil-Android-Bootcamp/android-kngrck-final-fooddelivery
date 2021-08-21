@@ -1,5 +1,6 @@
 package com.kngrck.fooddeliveryfinal.ui.editmeal
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -13,15 +14,13 @@ class MealListAdapter : RecyclerView.Adapter<MealListAdapter.MealListViewHolder>
     private var meals = ArrayList<Meal>()
     private var listener: IOnDeleteMeal? = null
 
-    inner class MealListViewHolder(val binding: ItemEditMealBinding) :
-        RecyclerView.ViewHolder(binding.root)
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MealListViewHolder {
         val binding = ItemEditMealBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
         return MealListViewHolder(binding)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: MealListViewHolder, position: Int) {
         val meal = meals[position]
         with(holder) {
@@ -43,6 +42,7 @@ class MealListAdapter : RecyclerView.Adapter<MealListAdapter.MealListViewHolder>
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setMeals(meals: ArrayList<Meal>) {
         this.meals = meals
         notifyDataSetChanged()
@@ -57,4 +57,7 @@ class MealListAdapter : RecyclerView.Adapter<MealListAdapter.MealListViewHolder>
     }
 
     override fun getItemCount(): Int = meals.size
+
+    inner class MealListViewHolder(val binding: ItemEditMealBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }

@@ -22,7 +22,6 @@ class NetworkModule {
         return retrofit.create(APIService::class.java)
     }
 
-
     @Provides
     fun provideRetrofit(
         okHttpClient: OkHttpClient,
@@ -76,4 +75,3 @@ class NetworkModule {
 
 data class EndPoint(val url: String)
 
-data class Token(val token: String)

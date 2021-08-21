@@ -35,32 +35,28 @@ class UserDetailsFragment : Fragment() {
         initListeners()
     }
 
-
     private fun initViews() {
         viewModel.getProfile().observe(viewLifecycleOwner, {
             when (it.status) {
 
                 Resource.Status.LOADING -> {
-                    _binding.mainLayout.gone()
-                    _binding.progressBar.show()
+                    setLoading(true)
 
                 }
                 Resource.Status.SUCCESS -> {
+                    setLoading(false)
+
                     val profile = it.data!!.data
 
                     with(_binding) {
-                        mainLayout.show()
-                        progressBar.gone()
                         userNameTextInput.editText?.setText(profile.name)
                         userPhoneTextInput.editText?.setText(profile.phone)
                         userProfileImageTextInput.editText?.setText(profile.profileImage)
                     }
-
                 }
 
                 Resource.Status.ERROR -> {
-                    _binding.mainLayout.show()
-                    _binding.progressBar.gone()
+                    setLoading(false)
                     showErrorToast(requireContext())
                 }
             }
@@ -83,16 +79,14 @@ class UserDetailsFragment : Fragment() {
                         when (it.status) {
 
                             Resource.Status.LOADING -> {
-                                mainLayout.gone()
-                                progressBar.show()
+                                setLoading(true)
                             }
                             Resource.Status.SUCCESS -> {
                                 findNavController().navigate(R.id.action_userDetailsFragment_to_profileFragment)
                             }
 
                             Resource.Status.ERROR -> {
-                                mainLayout.show()
-                                progressBar.gone()
+                                setLoading(true)
                                 showErrorToast(requireContext(), "Failed to apply changes.")
                             }
                         }
@@ -110,4 +104,16 @@ class UserDetailsFragment : Fragment() {
         }
     }
 
+    private fun setLoading(isLoading: Boolean) {
+        with(_binding) {
+            if (isLoading) {
+                mainLayout.gone()
+                progressBar.show()
+            } else {
+                mainLayout.show()
+                progressBar.gone()
+            }
+        }
+
+    }
 }

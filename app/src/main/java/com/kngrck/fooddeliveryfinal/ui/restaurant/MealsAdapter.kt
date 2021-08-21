@@ -1,5 +1,6 @@
 package com.kngrck.fooddeliveryfinal.ui.restaurant
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -13,9 +14,6 @@ class MealsAdapter : RecyclerView.Adapter<MealsAdapter.MealsViewHolder>() {
     private var meals = ArrayList<Meal>()
     private var listener: IMealOnClick? = null
 
-    inner class MealsViewHolder(val binding: ItemMealBinding) :
-        RecyclerView.ViewHolder(binding.root)
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MealsViewHolder {
         val binding = ItemMealBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
@@ -26,9 +24,11 @@ class MealsAdapter : RecyclerView.Adapter<MealsAdapter.MealsViewHolder>() {
         val meal = meals[position]
         with(holder) {
             with(binding) {
-
                 mealNameTextView.text = meal.name
-                mealPrice.text = String.format("%.2f", meal.price) + " TL"
+
+                val mealPriceText = String.format("%.2f", meal.price) + " TL"
+                mealPrice.text = mealPriceText
+
                 mealDetailsTextView.text = meal.details
                 val options = RequestOptions().placeholder(R.drawable.ic_burger)
                 Glide.with(mealImageView.context)
@@ -38,12 +38,11 @@ class MealsAdapter : RecyclerView.Adapter<MealsAdapter.MealsViewHolder>() {
 
             itemView.setOnClickListener {
                 listener?.onClick(meal)
-
             }
-
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setMeals(meals: ArrayList<Meal>) {
         this.meals = meals
         notifyDataSetChanged()
@@ -58,4 +57,7 @@ class MealsAdapter : RecyclerView.Adapter<MealsAdapter.MealsViewHolder>() {
     }
 
     override fun getItemCount(): Int = meals.size
+
+    inner class MealsViewHolder(val binding: ItemMealBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }

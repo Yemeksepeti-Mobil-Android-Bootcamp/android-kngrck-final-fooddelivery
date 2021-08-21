@@ -42,11 +42,11 @@ class HomeViewModel @Inject constructor(
             Category(null, "All"),
             Category(R.drawable.ic_burger, "Burger"),
             Category(R.drawable.ic_pizza, "Pizza"),
-            Category(R.drawable.ic_pizza, "Kebab"),
-            Category(R.drawable.ic_pizza, "World"),
-            Category(R.drawable.ic_pizza, "Eastern"),
-            Category(R.drawable.ic_pizza, "Seafood"),
-            Category(R.drawable.ic_pizza, "Dessert"),
+            Category(R.drawable.ic_kebab, "Kebab"),
+            Category(R.drawable.ic_world, "World"),
+            Category(R.drawable.ic_sushi3, "Eastern"),
+            Category(R.drawable.ic_fish, "Seafood"),
+            Category(R.drawable.ic_dessert, "Dessert"),
             Category(null, "Other"),
         )
     }

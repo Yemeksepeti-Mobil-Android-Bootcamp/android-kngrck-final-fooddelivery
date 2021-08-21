@@ -1,5 +1,6 @@
 package com.kngrck.fooddeliveryfinal.ui.home
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -13,9 +14,6 @@ class RestaurantsAdapter : RecyclerView.Adapter<RestaurantsAdapter.RestaurantsVi
     private var restaurants = ArrayList<Restaurant>()
     private var listener: IRestaurantOnClick? = null
 
-    inner class RestaurantsViewHolder(val binding: ItemRestaurantBinding) :
-        RecyclerView.ViewHolder(binding.root)
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestaurantsViewHolder {
         val binding = ItemRestaurantBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
@@ -26,14 +24,20 @@ class RestaurantsAdapter : RecyclerView.Adapter<RestaurantsAdapter.RestaurantsVi
         val restaurant = restaurants[position]
         with(holder) {
             with(binding) {
+
                 restaurantNameTextView.text = restaurant.name
                 ratingTextView.text = restaurant.rating.toString()
-                minimumTextView.text = String.format("%.2f", restaurant.minimumFee) + " TL"
+
+                val minimumFeeText = String.format("%.2f", restaurant.minimumFee) + " TL"
+                minimumTextView.text = minimumFeeText
+
                 deliveryTimeTextView.text = restaurant.deliveryTime
+
                 val options = RequestOptions().placeholder(R.drawable.ic_burger)
                 Glide.with(restaurantImageView.context)
                     .applyDefaultRequestOptions(options)
                     .load(restaurant.imageUrl).into(restaurantImageView)
+
             }
             itemView.setOnClickListener {
                 listener?.onRestaurantClick(restaurant)
@@ -42,6 +46,7 @@ class RestaurantsAdapter : RecyclerView.Adapter<RestaurantsAdapter.RestaurantsVi
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setRestaurants(restaurants: ArrayList<Restaurant>) {
         this.restaurants = restaurants
         notifyDataSetChanged()
@@ -56,4 +61,7 @@ class RestaurantsAdapter : RecyclerView.Adapter<RestaurantsAdapter.RestaurantsVi
     }
 
     override fun getItemCount(): Int = restaurants.size
+
+    inner class RestaurantsViewHolder(val binding: ItemRestaurantBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }

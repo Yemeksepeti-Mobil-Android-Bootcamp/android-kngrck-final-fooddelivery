@@ -34,41 +34,45 @@ class LoginFragment : BottomSheetDialogFragment() {
 
     private fun initListener() {
         _binding.loginButton.setOnClickListener {
-            val email = _binding.emailTextInput.editText?.text.toString()
-            val password = _binding.passwordTextInput.editText?.text.toString()
+            checkInputsAndLogin()
+        }
+    }
 
-            if (email.isNotEmpty() && password.isNotEmpty()) {
-                _binding.emailTextInput.error = ""
-                _binding.passwordTextInput.error = ""
-                FirebaseAuthManager.signIn(email, password, object : AuthListener {
-                    override fun isAuthSuccess(success: Boolean) {
-                        if (success) {
-                            FirebaseAuthManager.getCurrentUser()?.getIdToken(true)
-                                ?.addOnCompleteListener { result ->
-                                    if (result.isSuccessful) {
-                                        val accessToken = result.result?.token
-                                        accessToken?.let {
-                                            viewModel.saveToken(it)
-                                            val intent = Intent(context, MainActivity::class.java)
-                                            startActivity(intent)
-                                            requireActivity().finish()
-                                        }
-                                    } else {
-                                        showErrorToast(requireContext(), "Login Failed")
+    private fun checkInputsAndLogin() {
+        val email = _binding.emailTextInput.editText?.text.toString()
+        val password = _binding.passwordTextInput.editText?.text.toString()
+
+        if (email.isNotEmpty() && password.isNotEmpty()) {
+            _binding.emailTextInput.error = ""
+            _binding.passwordTextInput.error = ""
+            FirebaseAuthManager.signIn(email, password, object : AuthListener {
+                override fun isAuthSuccess(success: Boolean) {
+                    if (success) {
+                        FirebaseAuthManager.getCurrentUser()?.getIdToken(true)
+                            ?.addOnCompleteListener { result ->
+                                if (result.isSuccessful) {
+                                    val accessToken = result.result?.token
+                                    accessToken?.let {
+                                        viewModel.saveToken(it)
+                                        val intent = Intent(context, MainActivity::class.java)
+                                        startActivity(intent)
+                                        requireActivity().finish()
                                     }
+                                } else {
+                                    showErrorToast(requireContext(), "Login Failed")
                                 }
+                            }
 
-                        } else {
-                            showErrorToast(requireContext(), "Login failed")
-                        }
+                    } else {
+                        showErrorToast(requireContext(), "Login failed")
                     }
+                }
 
-                })
-            } else {
+            })
+        } else {
 
-                if (email.isEmpty()) _binding.emailTextInput.error = "Do not leave blank."
-                if (password.isEmpty()) _binding.passwordTextInput.error = "Do not leave blank."
-            }
+            if (email.isEmpty()) _binding.emailTextInput.error = "Do not leave blank."
+            if (password.isEmpty()) _binding.passwordTextInput.error = "Do not leave blank."
         }
     }
 

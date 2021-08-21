@@ -10,7 +10,6 @@ import com.kngrck.fooddeliveryfinal.R
 
 class SecondOnBoardingFragment : Fragment() {
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

@@ -1,5 +1,6 @@
 package com.kngrck.fooddeliveryfinal.ui.meal
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -32,20 +33,13 @@ class IngredientsAdapter : RecyclerView.Adapter<IngredientsAdapter.IngredientsVi
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setIngredients(ingredients: ArrayList<String>) {
         this.ingredients = ingredients
         notifyDataSetChanged()
     }
 
     fun getCheckedIngredients(): ArrayList<String> = checkedIngredients
-
-//    fun setListener(listener: IMealOnClick) {
-//        this.listener = listener
-//    }
-//
-//    fun removeListeners() {
-//        this.listener = null
-//    }
 
     override fun getItemCount(): Int = ingredients.size
 }

@@ -1,5 +1,6 @@
 package com.kngrck.fooddeliveryfinal.ui.editmeal
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +19,7 @@ class IngredientListAdapter :
         return IngredientListViewHolder(binding)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: IngredientListViewHolder, position: Int) {
         val ingredient = ingredients[position]
         with(holder) {
@@ -33,11 +35,13 @@ class IngredientListAdapter :
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setIngredients(ingredients: ArrayList<String>) {
         this.ingredients = ingredients
         notifyDataSetChanged()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun addIngredient(ingredient: String){
         ingredients.add(ingredient)
         notifyDataSetChanged()

@@ -1,7 +1,6 @@
 package com.kngrck.fooddeliveryfinal.ui.cart
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,13 +57,10 @@ class CartFragment : Fragment(), ICountChangeListener {
         viewModel.getCart().observe(viewLifecycleOwner, {
             when (it.status) {
                 Resource.Status.LOADING -> {
-                    _binding.mainLayout.gone()
-                    _binding.progressBar.show()
+                    setLoading(true)
                 }
                 Resource.Status.SUCCESS -> {
-
-                    _binding.mainLayout.show()
-                    _binding.progressBar.gone()
+                    setLoading(false)
 
                     val orders = it.data?.data!!
                     cartOrders = orders
@@ -72,7 +68,8 @@ class CartFragment : Fragment(), ICountChangeListener {
                     adapter.setListener(this)
                     with(_binding) {
                         ordersRecyclerView.adapter = adapter
-                        totalTextView.text = String.format("%.2f", getTotal()) + " TL"
+                        val totalText = String.format("%.2f", getTotal()) + " TL"
+                        totalTextView.text = totalText
 
                         if (orders.size == 0) {
                             orderButton.isClickable = false
@@ -83,9 +80,7 @@ class CartFragment : Fragment(), ICountChangeListener {
                     }
                 }
                 Resource.Status.ERROR -> {
-
-                    _binding.mainLayout.show()
-                    _binding.progressBar.gone()
+                    setLoading(false)
                     showErrorToast(requireContext())
                 }
             }
@@ -96,24 +91,77 @@ class CartFragment : Fragment(), ICountChangeListener {
         viewModel.confirmCart().observe(viewLifecycleOwner, {
             when (it.status) {
                 Resource.Status.LOADING -> {
-                    _binding.mainLayout.gone()
-                    _binding.progressBar.show()
+                    setLoading(true)
                 }
                 Resource.Status.SUCCESS -> {
-
-                    _binding.mainLayout.show()
-                    _binding.progressBar.gone()
+                    setLoading(false)
 
                     findNavController().navigate(R.id.action_cartFragment_to_homeFragment)
                 }
                 Resource.Status.ERROR -> {
+                    setLoading(false)
 
-                    _binding.mainLayout.show()
-                    _binding.progressBar.gone()
                     showErrorToast(requireContext(), "Failed order operation.")
                 }
             }
         })
+    }
+
+
+    override fun countChanged(cartOrderId: String, count: Int, updatedOrders: ArrayList<Order>) {
+
+        val updateCartOrderCountRequest = UpdateCartOrderCountRequest(count)
+
+        if (count == 0) {
+            viewModel.deleteCartOrder(cartOrderId).observe(viewLifecycleOwner, {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+
+                    }
+                    Resource.Status.SUCCESS -> {
+                        with(_binding) {
+                            val totalText = String.format("%.2f", getTotal()) + " TL"
+                            totalTextView.text = totalText
+
+                            if (updatedOrders.size == 0) {
+                                orderButton.isClickable = false
+                                orderButton.alpha = 0.5f
+                                noDataTextView.show()
+                                totalLinearLayout.gone()
+                            }
+                        }
+                    }
+                    Resource.Status.ERROR -> {
+                        showErrorToast(
+                            requireContext(),
+                            "Failed to delete order.Please try again later."
+                        )
+                    }
+                }
+            })
+        } else {
+            viewModel.updateCartOrderCount(cartOrderId, updateCartOrderCountRequest)
+                .observe(viewLifecycleOwner, {
+                    when (it.status) {
+                        Resource.Status.LOADING -> {
+                        }
+                        Resource.Status.SUCCESS -> {
+                            val totalText = String.format("%.2f", getTotal()) + " TL"
+                            _binding.totalTextView.text = totalText
+
+                        }
+                        Resource.Status.ERROR -> {
+                            showErrorToast(
+                                requireContext(),
+                                "Failed to change quantity.Please try again later."
+                            )
+
+                        }
+                    }
+                }
+                )
+        }
+
     }
 
     private fun getTotal(): Double {
@@ -124,62 +172,15 @@ class CartFragment : Fragment(), ICountChangeListener {
         return sum
     }
 
-    override fun countChanged(cartOrderId: String, count: Int, updatedOrders: ArrayList<Order>) {
-
-        val updateCartOrderCountRequest = UpdateCartOrderCountRequest(count)
-
-        if (count == 0) {
-            viewModel.deleteCartOrder(cartOrderId).observe(viewLifecycleOwner, {
-                when (it.status) {
-                    Resource.Status.LOADING -> {
-                        Log.v("Cart", "loading ")
-                    }
-                    Resource.Status.SUCCESS -> {
-                        _binding.totalTextView.text = String.format("%.2f", getTotal()) + " TL"
-                        with(_binding) {
-                            if (updatedOrders.size == 0) {
-                                orderButton.isClickable = false
-                                orderButton.alpha = 0.5f
-                                noDataTextView.show()
-                                totalLinearLayout.gone()
-                            }
-
-                        }
-
-                    }
-                    Resource.Status.ERROR -> {
-                        showErrorToast(
-                            requireContext(),
-                            "Failed to delete order.Please try again later."
-                        )
-
-                    }
-                }
-
-            })
-        } else {
-            viewModel.updateCartOrderCount(cartOrderId, updateCartOrderCountRequest)
-                .observe(viewLifecycleOwner,
-                    {
-                        when (it.status) {
-                            Resource.Status.LOADING -> {
-                            }
-                            Resource.Status.SUCCESS -> {
-                                _binding.totalTextView.text =
-                                    String.format("%.2f", getTotal()) + " TL"
-                            }
-                            Resource.Status.ERROR -> {
-                                showErrorToast(
-                                    requireContext(),
-                                    "Failed to change quantity.Please try again later."
-                                )
-
-                            }
-                        }
-
-                    }
-
-                )
+    private fun setLoading(isLoading: Boolean) {
+        with(_binding) {
+            if (isLoading) {
+                mainLayout.gone()
+                progressBar.show()
+            } else {
+                mainLayout.show()
+                progressBar.gone()
+            }
         }
 
     }

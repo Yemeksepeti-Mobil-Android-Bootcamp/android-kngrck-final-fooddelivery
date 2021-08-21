@@ -1,5 +1,6 @@
 package com.kngrck.fooddeliveryfinal.ui.favorite
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -24,9 +25,13 @@ class FavRestaurantsAdapter :
         val restaurant = favRestaurants[position]
         with(holder) {
             with(binding) {
+
                 restaurantNameTextView.text = restaurant.name
                 ratingTextView.text = restaurant.rating.toString()
-                minimumTextView.text = String.format("%.2f", restaurant.minimumFee) + " TL"
+
+                val minimumFeeText = String.format("%.2f", restaurant.minimumFee) + " TL"
+                minimumTextView.text = minimumFeeText
+
                 deliveryTimeTextView.text = restaurant.deliveryTime
 
                 deleteFavoriteButton.setOnClickListener {
@@ -39,6 +44,7 @@ class FavRestaurantsAdapter :
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setFavRestaurants(favRestaurants: ArrayList<Restaurant>) {
         this.favRestaurants = favRestaurants
         notifyDataSetChanged()

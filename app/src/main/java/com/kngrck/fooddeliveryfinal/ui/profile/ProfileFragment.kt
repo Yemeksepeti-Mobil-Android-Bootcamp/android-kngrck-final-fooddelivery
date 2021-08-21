@@ -1,7 +1,6 @@
 package com.kngrck.fooddeliveryfinal.ui.profile
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,32 +36,24 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
+        initListeners()
     }
 
     private fun initViews() {
 
-        _binding.settingsButton.setOnClickListener {
-            userType?.let {
-                val action = ProfileFragmentDirections.actionProfileFragmentToSettingsFragment(
-                    it
-                )
-                findNavController().navigate(action)
-            }
-
-        }
-
-        viewModel.getProfile().observe(viewLifecycleOwner, {
-            when (it.status) {
+        viewModel.getProfile().observe(viewLifecycleOwner, { resource ->
+            when (resource.status) {
                 Resource.Status.LOADING -> {
-                    _binding.mainLayout.gone()
-                    _binding.progressBar.show()
+                    setLoading(true)
                 }
                 Resource.Status.SUCCESS -> {
-                    _binding.mainLayout.show()
-                    _binding.progressBar.gone()
-                    val profile = it.data!!.data
+                    setLoading(false)
+
+                    val profile = resource.data!!.data
                     userType = profile.type
-                    adapter.setOrders(profile.orders)
+                    val ordersSortByDate = profile.orders
+                    ordersSortByDate.sortByDescending { it.createdAt }
+                    adapter.setOrders(ordersSortByDate)
 
                     with(_binding) {
                         lastOrdersRecyclerView.layoutManager =
@@ -78,15 +69,32 @@ class ProfileFragment : Fragment() {
                     }
                 }
                 Resource.Status.ERROR -> {
-                    _binding.mainLayout.show()
-                    _binding.progressBar.gone()
+                    setLoading(false)
                     showErrorToast(requireContext())
                 }
             }
         })
-
-
     }
 
+    private fun initListeners() {
+        _binding.settingsButton.setOnClickListener {
+            userType?.let {
+                val action = ProfileFragmentDirections.actionProfileFragmentToSettingsFragment(it)
+                findNavController().navigate(action)
+            }
+        }
+    }
 
+    private fun setLoading(isLoading: Boolean) {
+        with(_binding) {
+            if (isLoading) {
+                mainLayout.gone()
+                progressBar.show()
+            } else {
+                mainLayout.show()
+                progressBar.gone()
+            }
+        }
+
+    }
 }

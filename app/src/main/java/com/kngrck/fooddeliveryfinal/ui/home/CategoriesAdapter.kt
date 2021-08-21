@@ -1,5 +1,6 @@
 package com.kngrck.fooddeliveryfinal.ui.home
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -13,8 +14,6 @@ class CategoriesAdapter : RecyclerView.Adapter<CategoriesAdapter.CategoriesViewH
     private var selectedItemIndex = 0
     private var listener: ICategoryOnClick? = null
 
-    inner class CategoriesViewHolder(val binding: ItemCategoryBinding) :
-        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriesViewHolder {
         val binding = ItemCategoryBinding
@@ -22,6 +21,7 @@ class CategoriesAdapter : RecyclerView.Adapter<CategoriesAdapter.CategoriesViewH
         return CategoriesViewHolder(binding)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: CategoriesViewHolder, position: Int) {
         val category = categories[position]
         with(holder) {
@@ -42,6 +42,7 @@ class CategoriesAdapter : RecyclerView.Adapter<CategoriesAdapter.CategoriesViewH
                     binding.categoryCardView.setCardBackgroundColor(Color.parseColor("#FAFAFA"))
                     categoryTextView.setTextColor(Color.BLACK)
                 }
+
                 itemView.setOnClickListener {
                     listener?.onCategoryClick(category)
                     if (selectedItemIndex != -1)
@@ -58,6 +59,7 @@ class CategoriesAdapter : RecyclerView.Adapter<CategoriesAdapter.CategoriesViewH
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setCategories(categories: ArrayList<Category>) {
         this.categories = categories
         notifyDataSetChanged()
@@ -72,4 +74,7 @@ class CategoriesAdapter : RecyclerView.Adapter<CategoriesAdapter.CategoriesViewH
     }
 
     override fun getItemCount(): Int = categories.size
+
+    inner class CategoriesViewHolder(val binding: ItemCategoryBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }
