@@ -15,7 +15,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private var apiRepository: ApiRepository
 ) : ViewModel() {
-
+    var restaurantList = ArrayList<Restaurant>()
 
     fun getAllRestaurants(): LiveData<Resource<RestaurantListResponse>> =
         apiRepository.getAllRestaurants()
@@ -24,10 +24,7 @@ class HomeViewModel @Inject constructor(
     fun getRestaurantsByCategory(category: String): LiveData<Resource<RestaurantListResponse>> =
         apiRepository.getRestaurantsByCategory(category)
 
-    fun searchRestaurant(
-        text: String?,
-        restaurantList: ArrayList<Restaurant>
-    ): ArrayList<Restaurant> {
+    fun searchRestaurant(text: String?): ArrayList<Restaurant> {
 
         if (text.isNullOrEmpty()) return restaurantList
 

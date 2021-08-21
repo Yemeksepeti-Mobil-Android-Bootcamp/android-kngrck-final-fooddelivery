@@ -19,6 +19,7 @@ import com.kngrck.fooddeliveryfinal.model.entity.meal.Meal
 import com.kngrck.fooddeliveryfinal.utils.Resource
 import com.kngrck.fooddeliveryfinal.utils.gone
 import com.kngrck.fooddeliveryfinal.utils.show
+import com.kngrck.fooddeliveryfinal.utils.showErrorToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -79,7 +80,7 @@ class RestaurantFragment : Fragment(), IMealOnClick {
                 Resource.Status.ERROR -> {
                     _binding.mainLayout.show()
                     _binding.progressBar.gone()
-                    Log.v("Home", "Error")
+                   showErrorToast(requireContext())
                 }
             }
         })
@@ -105,7 +106,7 @@ class RestaurantFragment : Fragment(), IMealOnClick {
                         }
                         Resource.Status.ERROR -> {
 
-                            Log.v("Restaurant", "Error")
+                            showErrorToast(requireContext(),"Add favorite restaurant failed.")
                         }
                     }
                 })

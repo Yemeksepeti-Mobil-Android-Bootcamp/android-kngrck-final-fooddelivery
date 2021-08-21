@@ -16,6 +16,7 @@ import com.kngrck.fooddeliveryfinal.databinding.FragmentProfileBinding
 import com.kngrck.fooddeliveryfinal.utils.Resource
 import com.kngrck.fooddeliveryfinal.utils.gone
 import com.kngrck.fooddeliveryfinal.utils.show
+import com.kngrck.fooddeliveryfinal.utils.showErrorToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -61,7 +62,6 @@ class ProfileFragment : Fragment() {
                     _binding.progressBar.gone()
                     val profile = it.data!!.data
                     userType = profile.type
-                    Log.v("Profile", "profile $profile")
                     adapter.setOrders(profile.orders)
 
                     with(_binding) {
@@ -80,7 +80,7 @@ class ProfileFragment : Fragment() {
                 Resource.Status.ERROR -> {
                     _binding.mainLayout.show()
                     _binding.progressBar.gone()
-                    Log.v("Profile", "error $it.message")
+                    showErrorToast(requireContext())
                 }
             }
         })

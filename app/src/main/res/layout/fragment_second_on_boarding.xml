@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_medium"
-        android:text="Fast Delivery"
+        android:text="@string/second_onboarding_title"
         android:textAlignment="center"
         android:textColor="@color/primary"
         android:textSize="24sp"
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
         android:fontFamily="@font/poppins_medium"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing el sit."
+        android:text="@string/second_onboarding_description"
         android:textAlignment="center"
         android:textSize="16sp" />
 

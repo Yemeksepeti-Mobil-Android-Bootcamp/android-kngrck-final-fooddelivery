@@ -19,5 +19,4 @@
         android:textSize="14sp"
         tools:text="Ingredient" />
 
-
 </androidx.cardview.widget.CardView>

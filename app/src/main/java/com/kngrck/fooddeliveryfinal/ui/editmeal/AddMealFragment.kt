@@ -16,6 +16,7 @@ import com.kngrck.fooddeliveryfinal.model.entity.meal.AddMealRequest
 import com.kngrck.fooddeliveryfinal.utils.Resource
 import com.kngrck.fooddeliveryfinal.utils.gone
 import com.kngrck.fooddeliveryfinal.utils.show
+import com.kngrck.fooddeliveryfinal.utils.showErrorToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -91,11 +92,7 @@ class AddMealFragment : Fragment() {
                         }
                         Resource.Status.ERROR -> {
                             setLoading(false)
-                            Toast.makeText(
-                                requireContext(),
-                                "Meal could not added",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            showErrorToast(requireContext(),"Add meal failed.")
                         }
                     }
                 })

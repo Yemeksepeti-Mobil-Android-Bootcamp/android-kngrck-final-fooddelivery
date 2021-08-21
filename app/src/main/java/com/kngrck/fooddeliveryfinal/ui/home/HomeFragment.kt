@@ -1,7 +1,6 @@
 package com.kngrck.fooddeliveryfinal.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +15,7 @@ import com.kngrck.fooddeliveryfinal.model.helper.Category
 import com.kngrck.fooddeliveryfinal.utils.Resource
 import com.kngrck.fooddeliveryfinal.utils.gone
 import com.kngrck.fooddeliveryfinal.utils.show
+import com.kngrck.fooddeliveryfinal.utils.showErrorToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -58,19 +58,21 @@ class HomeFragment : Fragment(), IRestaurantOnClick, ICategoryOnClick {
 
                     _binding.restaurantsRecyclerView.show()
                     _binding.progressBar.gone()
+
                     val restaurants = it.data?.data!!
+                    viewModel.restaurantList = restaurants
                     restaurantsAdapter.setRestaurants(restaurants)
                     restaurantsAdapter.setListener(this)
 
                     _binding.searchView.setOnQueryTextListener(object : OnQueryTextListener {
                         override fun onQueryTextSubmit(query: String?): Boolean {
-                            val filterList = viewModel.searchRestaurant(query, restaurants)
+                            val filterList = viewModel.searchRestaurant(query)
                             restaurantsAdapter.setRestaurants(filterList)
                             return true
                         }
 
                         override fun onQueryTextChange(newText: String?): Boolean {
-                            val filterList = viewModel.searchRestaurant(newText, restaurants)
+                            val filterList = viewModel.searchRestaurant(newText)
                             restaurantsAdapter.setRestaurants(filterList)
                             return true
                         }
@@ -87,6 +89,7 @@ class HomeFragment : Fragment(), IRestaurantOnClick, ICategoryOnClick {
 
                     _binding.restaurantsRecyclerView.show()
                     _binding.progressBar.gone()
+                    showErrorToast(requireContext())
                 }
             }
         })
@@ -111,6 +114,7 @@ class HomeFragment : Fragment(), IRestaurantOnClick, ICategoryOnClick {
                         _binding.restaurantsRecyclerView.show()
                         _binding.progressBar.gone()
                         val restaurants = it.data?.data!!
+                        viewModel.restaurantList = restaurants
                         restaurantsAdapter.setRestaurants(restaurants)
                         restaurantsAdapter.setListener(this)
 
@@ -121,6 +125,7 @@ class HomeFragment : Fragment(), IRestaurantOnClick, ICategoryOnClick {
 
                         _binding.restaurantsRecyclerView.show()
                         _binding.progressBar.gone()
+                        showErrorToast(requireContext())
                     }
                 }
             })
@@ -146,7 +151,7 @@ class HomeFragment : Fragment(), IRestaurantOnClick, ICategoryOnClick {
 
                         _binding.restaurantsRecyclerView.show()
                         _binding.progressBar.gone()
-                        Log.v("Home", "$it.message")
+                        showErrorToast(requireContext())
                     }
                 }
             })

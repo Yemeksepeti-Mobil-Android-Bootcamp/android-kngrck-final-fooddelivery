@@ -15,6 +15,7 @@ import com.kngrck.fooddeliveryfinal.ui.favorite.IOnDeleteRestaurant
 import com.kngrck.fooddeliveryfinal.utils.Resource
 import com.kngrck.fooddeliveryfinal.utils.gone
 import com.kngrck.fooddeliveryfinal.utils.show
+import com.kngrck.fooddeliveryfinal.utils.showErrorToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -65,6 +66,7 @@ class RestaurantListFragment : Fragment(), IOnDeleteRestaurant {
 
                     _binding.restaurantsRecyclerView.show()
                     _binding.progressBar.gone()
+                    showErrorToast(requireContext())
                 }
             }
         })
@@ -99,7 +101,7 @@ class RestaurantListFragment : Fragment(), IOnDeleteRestaurant {
 
                     _binding.restaurantsRecyclerView.show()
                     _binding.progressBar.gone()
-                    Toast.makeText(requireContext(), "Restaurant could not deleted", Toast.LENGTH_SHORT).show()
+                    showErrorToast(requireContext(),"Delete restaurant failed. Please try again later")
                 }
             }
         })

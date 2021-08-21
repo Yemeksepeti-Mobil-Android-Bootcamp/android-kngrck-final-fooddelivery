@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/poppins_medium"
-                android:text="Meals"
+                android:text="@string/meals"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="20sp"

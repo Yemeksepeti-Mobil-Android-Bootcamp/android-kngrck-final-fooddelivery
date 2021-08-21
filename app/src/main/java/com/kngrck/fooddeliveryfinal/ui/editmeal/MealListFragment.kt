@@ -4,17 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.kngrck.fooddeliveryfinal.R
 import com.kngrck.fooddeliveryfinal.databinding.FragmentMealListBinding
 import com.kngrck.fooddeliveryfinal.utils.Resource
 import com.kngrck.fooddeliveryfinal.utils.gone
 import com.kngrck.fooddeliveryfinal.utils.show
+import com.kngrck.fooddeliveryfinal.utils.showErrorToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -70,6 +69,7 @@ class MealListFragment : Fragment(), IOnDeleteMeal {
 
                     _binding.mealsRecyclerView.show()
                     _binding.progressBar.gone()
+                    showErrorToast(requireContext())
                 }
             }
         })
@@ -81,7 +81,8 @@ class MealListFragment : Fragment(), IOnDeleteMeal {
                 findNavController().popBackStack()
             }
             addMealButton.setOnClickListener {
-                val action = MealListFragmentDirections.actionMealListFragmentToAddMealFragment(args.restaurantId)
+                val action =
+                    MealListFragmentDirections.actionMealListFragmentToAddMealFragment(args.restaurantId)
                 findNavController().navigate(action)
             }
         }
@@ -104,11 +105,10 @@ class MealListFragment : Fragment(), IOnDeleteMeal {
 
                     _binding.mealsRecyclerView.show()
                     _binding.progressBar.gone()
-                    Toast.makeText(
+                    showErrorToast(
                         requireContext(),
-                        "Restaurant could not deleted",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                        "Failed to delete meal. Please try again later."
+                    )
                 }
             }
         })

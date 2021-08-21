@@ -5,13 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kngrck.fooddeliveryfinal.databinding.FragmentSignUpBinding
 import com.kngrck.fooddeliveryfinal.ui.MainActivity
 import com.kngrck.fooddeliveryfinal.utils.AuthListener
 import com.kngrck.fooddeliveryfinal.utils.FirebaseAuthManager
+import com.kngrck.fooddeliveryfinal.utils.showErrorToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -50,13 +50,13 @@ class SignUpFragment : BottomSheetDialogFragment() {
                                             requireActivity().finish()
                                         }
                                     } else {
-                                        Toast.makeText(context, "SignUp failed", Toast.LENGTH_SHORT)
-                                            .show()
+                                        showErrorToast(requireContext(), "Sign Up failed.")
+
                                     }
                                 }
 
                         } else {
-                            Toast.makeText(context, "SignUp failed", Toast.LENGTH_SHORT).show()
+                            showErrorToast(requireContext(), "Sign Up failed.")
                         }
                     }
 

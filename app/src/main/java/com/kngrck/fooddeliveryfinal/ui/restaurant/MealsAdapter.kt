@@ -29,7 +29,7 @@ class MealsAdapter : RecyclerView.Adapter<MealsAdapter.MealsViewHolder>() {
 
                 mealNameTextView.text = meal.name
                 mealPrice.text = String.format("%.2f", meal.price) + " TL"
-
+                mealDetailsTextView.text = meal.details
                 val options = RequestOptions().placeholder(R.drawable.ic_burger)
                 Glide.with(mealImageView.context)
                     .applyDefaultRequestOptions(options)

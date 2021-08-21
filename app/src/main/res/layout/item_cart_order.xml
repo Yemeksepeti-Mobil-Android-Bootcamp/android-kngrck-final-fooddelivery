@@ -29,27 +29,27 @@
             android:id="@+id/mealNameTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:fontFamily="@font/poppins_medium"
+            android:maxLines="2"
             android:textColor="@color/black"
             android:textSize="16sp"
-            app:layout_constraintLeft_toRightOf="@id/mealImageView"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/countLinearLayout"
             app:layout_constraintBottom_toTopOf="@id/restaurantNameTextView"
-            android:maxLines="2"
+            app:layout_constraintLeft_toRightOf="@id/mealImageView"
+            app:layout_constraintRight_toLeftOf="@id/countLinearLayout"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="Meal Name" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/restaurantNameTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:fontFamily="@font/poppins_medium"
-            app:layout_constraintRight_toLeftOf="@id/countLinearLayout"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/mealImageView"
+            app:layout_constraintRight_toLeftOf="@id/countLinearLayout"
 
             tools:text="Restaurant Name" />
 
@@ -76,7 +76,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="2 ad."
                 android:textSize="14sp"
                 tools:text="2 ad." />
 

@@ -18,6 +18,7 @@ import com.kngrck.fooddeliveryfinal.model.entity.cart.AddCartRequest
 import com.kngrck.fooddeliveryfinal.utils.Resource
 import com.kngrck.fooddeliveryfinal.utils.gone
 import com.kngrck.fooddeliveryfinal.utils.show
+import com.kngrck.fooddeliveryfinal.utils.showErrorToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,6 +28,7 @@ class MealFragment : Fragment() {
     private val args: MealFragmentArgs by navArgs()
     private var adapter: IngredientsAdapter = IngredientsAdapter()
     private var count = 1
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -83,7 +85,7 @@ class MealFragment : Fragment() {
                 Resource.Status.ERROR -> {
                     _binding.mainLayout.show()
                     _binding.progressBar.gone()
-                    Log.v("Meal", "Error $it")
+                    showErrorToast(requireContext(),"Add to cart failed.")
                 }
             }
         })
@@ -106,6 +108,7 @@ class MealFragment : Fragment() {
                         mealCardView.setBackgroundResource(R.drawable.shape_meal_card)
                         mealNameTextView.text = meal.name
                         mealDetailsTextView.text = meal.details
+                        mealPriceTextView.text = String.format("%.2f", meal.price) + " TL"
                         ingredientsRecyclerView.layoutManager =
                             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
@@ -120,7 +123,7 @@ class MealFragment : Fragment() {
                 Resource.Status.ERROR -> {
                     _binding.mainLayout.show()
                     _binding.progressBar.gone()
-                    Log.v("Meal", "Error")
+                    showErrorToast(requireContext())
                 }
             }
         })

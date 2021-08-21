@@ -1,7 +1,6 @@
 package com.kngrck.fooddeliveryfinal.ui.settings
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +13,7 @@ import com.kngrck.fooddeliveryfinal.model.entity.profile.UpdateProfileRequest
 import com.kngrck.fooddeliveryfinal.utils.Resource
 import com.kngrck.fooddeliveryfinal.utils.gone
 import com.kngrck.fooddeliveryfinal.utils.show
+import com.kngrck.fooddeliveryfinal.utils.showErrorToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -61,7 +61,7 @@ class UserDetailsFragment : Fragment() {
                 Resource.Status.ERROR -> {
                     _binding.mainLayout.show()
                     _binding.progressBar.gone()
-                    Log.v("Home", "Error")
+                    showErrorToast(requireContext())
                 }
             }
         })
@@ -93,7 +93,7 @@ class UserDetailsFragment : Fragment() {
                             Resource.Status.ERROR -> {
                                 mainLayout.show()
                                 progressBar.gone()
-                                Log.v("Home", "Error")
+                                showErrorToast(requireContext(), "Failed to apply changes.")
                             }
                         }
                     })
@@ -102,7 +102,8 @@ class UserDetailsFragment : Fragment() {
 
                     if (name.isEmpty()) _binding.userNameTextInput.error = "Do not leave blank."
                     if (phone.isEmpty()) _binding.userPhoneTextInput.error = "Do not leave blank."
-                    if (profileImage.isEmpty()) _binding.userPhoneTextInput.error = "Do not leave blank."
+                    if (profileImage.isEmpty()) _binding.userPhoneTextInput.error =
+                        "Do not leave blank."
                 }
             }
 
