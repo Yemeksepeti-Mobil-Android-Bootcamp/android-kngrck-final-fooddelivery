@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.kngrck.fooddeliveryfinal.R
 import com.kngrck.fooddeliveryfinal.databinding.ItemFavRestaurantBinding
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.Restaurant
 
@@ -34,6 +37,11 @@ class FavRestaurantsAdapter :
                 minimumTextView.text = minimumFeeText
 
                 deliveryTimeTextView.text = restaurant.deliveryTime
+
+                val options = RequestOptions().placeholder(R.drawable.ic_burger)
+                Glide.with(restaurantImageView.context)
+                    .applyDefaultRequestOptions(options)
+                    .load(restaurant.imageUrl).into(restaurantImageView)
 
                 restaurantItemCardView.setOnClickListener {
                     val action = FavoriteFragmentDirections.actionFavoriteFragmentToRestaurantFragment(

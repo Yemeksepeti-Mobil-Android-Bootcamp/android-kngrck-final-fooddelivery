@@ -58,7 +58,7 @@ class MealFragment : Fragment() {
         }
 
         _binding.addToCartButton.setOnClickListener {
-            addToCartAndNavigateToHome()
+            addToCartAndNavigateToRestaurant()
         }
 
         _binding.backButton.setOnClickListener {
@@ -66,7 +66,7 @@ class MealFragment : Fragment() {
         }
     }
 
-    private fun addToCartAndNavigateToHome() {
+    private fun addToCartAndNavigateToRestaurant() {
         val addCartRequest = AddCartRequest(
             args.restaurantId,
             args.mealId,
@@ -79,7 +79,7 @@ class MealFragment : Fragment() {
                     setLoading(true)
                 }
                 Resource.Status.SUCCESS -> {
-                    findNavController().navigate(R.id.action_mealFragment_to_homeFragment)
+                    findNavController().popBackStack()
                 }
                 Resource.Status.ERROR -> {
                     setLoading(false)
