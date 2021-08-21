@@ -1,5 +1,6 @@
 package com.kngrck.fooddeliveryfinal.ui.cart
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -22,15 +23,19 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.OrdersViewHolder>() {
         return OrdersViewHolder(binding)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: OrdersViewHolder, position: Int) {
         val order = orders[position]
         with(holder) {
             with(binding) {
                 mealNameTextView.text = order.mealName
                 restaurantNameTextView.text = order.restaurantName
-                mealPriceTextView.text =
-                    String.format("%.2f", order.mealPrice * order.count) + " TL"
-                mealCountTextView.text = order.count.toString() + " ad."
+
+                val mealPriceText =String.format("%.2f", order.mealPrice * order.count) + " TL"
+                mealPriceTextView.text = mealPriceText
+
+                val mealCountText = order.count.toString() + " qty."
+                mealCountTextView.text = mealCountText
 
                 val options = RequestOptions().placeholder(R.drawable.ic_burger)
                 Glide.with(mealImageView.context)
@@ -41,16 +46,14 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.OrdersViewHolder>() {
                     var count = order.count
                     if (count > 1) {
                         count--
-                        orders[position].count = count
-                        listener?.countChanged(order.id, orders[position].count, orders)
+                        order.count = count
+                        listener?.countChanged(order.id, order.count, orders)
                         notifyItemChanged(position)
                     } else if (count == 1) {
                         orders.remove(order)
                         listener?.countChanged(order.id, 0, orders)
                         notifyDataSetChanged()
                     }
-
-
                 }
 
                 increaseCountButton.setOnClickListener {
@@ -65,6 +68,7 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.OrdersViewHolder>() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setOrders(orders: ArrayList<Order>) {
         this.orders = orders
         notifyDataSetChanged()

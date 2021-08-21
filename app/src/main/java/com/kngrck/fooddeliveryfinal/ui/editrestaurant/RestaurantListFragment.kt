@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -42,38 +41,31 @@ class RestaurantListFragment : Fragment(), IOnDeleteRestaurant {
         viewModel.getAllRestaurants().observe(viewLifecycleOwner, {
             when (it.status) {
                 Resource.Status.LOADING -> {
-                    _binding.restaurantsRecyclerView.gone()
-                    _binding.progressBar.show()
+                    setLoading(true)
                 }
                 Resource.Status.SUCCESS -> {
-
-                    _binding.restaurantsRecyclerView.show()
-                    _binding.progressBar.gone()
+                    setLoading(false)
 
                     val restaurants = it.data?.data!!
                     restaurantListAdapter.setRestaurants(restaurants)
                     restaurantListAdapter.setListener(this)
 
-
                     with(_binding) {
-
                         restaurantsRecyclerView.layoutManager =
                             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                         restaurantsRecyclerView.adapter = restaurantListAdapter
                     }
                 }
                 Resource.Status.ERROR -> {
-
-                    _binding.restaurantsRecyclerView.show()
-                    _binding.progressBar.gone()
+                    setLoading(false)
                     showErrorToast(requireContext())
                 }
             }
         })
     }
 
-    private fun initListeners(){
-        with(_binding){
+    private fun initListeners() {
+        with(_binding) {
             backButton.setOnClickListener {
                 findNavController().popBackStack()
             }
@@ -84,28 +76,36 @@ class RestaurantListFragment : Fragment(), IOnDeleteRestaurant {
     }
 
     override fun onDeleteRestaurant(restaurantId: String) {
-        viewModel.deleteRestaurant(restaurantId).observe(viewLifecycleOwner,{
+        viewModel.deleteRestaurant(restaurantId).observe(viewLifecycleOwner, {
             when (it.status) {
                 Resource.Status.LOADING -> {
-                    _binding.restaurantsRecyclerView.gone()
-                    _binding.progressBar.show()
+                    setLoading(true)
                 }
                 Resource.Status.SUCCESS -> {
-
-                    _binding.restaurantsRecyclerView.show()
-                    _binding.progressBar.gone()
-
-
+                    setLoading(false)
                 }
                 Resource.Status.ERROR -> {
+                    setLoading(false)
 
-                    _binding.restaurantsRecyclerView.show()
-                    _binding.progressBar.gone()
-                    showErrorToast(requireContext(),"Delete restaurant failed. Please try again later")
+                    showErrorToast(
+                        requireContext(),
+                        "Delete restaurant failed. Please try again later"
+                    )
                 }
             }
         })
     }
 
+    private fun setLoading(isLoading: Boolean) {
+        with(_binding) {
+            if (isLoading) {
+                restaurantsRecyclerView.gone()
+                progressBar.show()
+            } else {
+                restaurantsRecyclerView.show()
+                progressBar.gone()
+            }
+        }
+    }
 
 }

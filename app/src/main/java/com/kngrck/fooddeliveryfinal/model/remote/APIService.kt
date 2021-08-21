@@ -5,7 +5,6 @@ import com.kngrck.fooddeliveryfinal.model.entity.cart.UpdateCartOrderCountReques
 import com.kngrck.fooddeliveryfinal.model.entity.common.BaseResponse
 import com.kngrck.fooddeliveryfinal.model.entity.favorite.AddFavoriteRestaurantRequest
 import com.kngrck.fooddeliveryfinal.model.entity.meal.AddMealRequest
-import com.kngrck.fooddeliveryfinal.model.entity.meal.Meal
 import com.kngrck.fooddeliveryfinal.model.entity.meal.MealResponse
 import com.kngrck.fooddeliveryfinal.model.entity.order.Order
 import com.kngrck.fooddeliveryfinal.model.entity.order.OrderListResponse

@@ -1,7 +1,6 @@
 package com.kngrck.fooddeliveryfinal.ui.meal
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,11 +58,15 @@ class MealFragment : Fragment() {
         }
 
         _binding.addToCartButton.setOnClickListener {
-            addToCartAndNavigateToHome()
+            addToCartAndNavigateToRestaurant()
+        }
+
+        _binding.backButton.setOnClickListener {
+            findNavController().popBackStack()
         }
     }
 
-    private fun addToCartAndNavigateToHome() {
+    private fun addToCartAndNavigateToRestaurant() {
         val addCartRequest = AddCartRequest(
             args.restaurantId,
             args.mealId,
@@ -73,19 +76,14 @@ class MealFragment : Fragment() {
         viewModel.addToCart(addCartRequest).observe(viewLifecycleOwner, {
             when (it.status) {
                 Resource.Status.LOADING -> {
-                    _binding.mainLayout.gone()
-                    _binding.progressBar.show()
+                    setLoading(true)
                 }
                 Resource.Status.SUCCESS -> {
-
-                    _binding.progressBar.gone()
-                    findNavController().navigate(R.id.action_mealFragment_to_homeFragment)
-                    _binding.mainLayout.show()
+                    findNavController().popBackStack()
                 }
                 Resource.Status.ERROR -> {
-                    _binding.mainLayout.show()
-                    _binding.progressBar.gone()
-                    showErrorToast(requireContext(),"Add to cart failed.")
+                    setLoading(false)
+                    showErrorToast(requireContext(), "Add to cart failed.")
                 }
             }
         })
@@ -95,12 +93,11 @@ class MealFragment : Fragment() {
         viewModel.getMealById(args.mealId, args.restaurantId).observe(viewLifecycleOwner, {
             when (it.status) {
                 Resource.Status.LOADING -> {
-                    _binding.mainLayout.gone()
-                    _binding.progressBar.show()
+                    setLoading(true)
                 }
                 Resource.Status.SUCCESS -> {
-                    _binding.mainLayout.show()
-                    _binding.progressBar.gone()
+                    setLoading(false)
+
                     val meal = it.data?.data!!
                     adapter.setIngredients(meal.ingredients)
 
@@ -108,7 +105,10 @@ class MealFragment : Fragment() {
                         mealCardView.setBackgroundResource(R.drawable.shape_meal_card)
                         mealNameTextView.text = meal.name
                         mealDetailsTextView.text = meal.details
-                        mealPriceTextView.text = String.format("%.2f", meal.price) + " TL"
+
+                        val mealPriceText = String.format("%.2f", meal.price) + " TL"
+                        mealPriceTextView.text = mealPriceText
+
                         ingredientsRecyclerView.layoutManager =
                             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
@@ -121,8 +121,7 @@ class MealFragment : Fragment() {
                     }
                 }
                 Resource.Status.ERROR -> {
-                    _binding.mainLayout.show()
-                    _binding.progressBar.gone()
+                    setLoading(true)
                     showErrorToast(requireContext())
                 }
             }
@@ -137,5 +136,18 @@ class MealFragment : Fragment() {
     private fun decreaseCount() {
         if (count > 1) count--
         _binding.orderCount.text = count.toString()
+    }
+
+    private fun setLoading(isLoading: Boolean) {
+        with(_binding) {
+            if (isLoading) {
+                mainLayout.gone()
+                progressBar.show()
+            } else {
+                mainLayout.show()
+                progressBar.gone()
+            }
+        }
+
     }
 }

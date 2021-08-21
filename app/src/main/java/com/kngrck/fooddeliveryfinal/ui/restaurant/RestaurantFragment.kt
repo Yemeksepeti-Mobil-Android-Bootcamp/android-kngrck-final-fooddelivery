@@ -45,29 +45,59 @@ class RestaurantFragment : Fragment(), IMealOnClick {
 
 
     private fun initViews() {
+        _binding.mealsRecyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        _binding.mealsRecyclerView.adapter = adapter
+        getRestaurantAndSetViews()
+    }
+
+    private fun initListeners() {
+        _binding.backButton.setOnClickListener {
+            findNavController().popBackStack()
+        }
+        _binding.favoriteButton.setOnClickListener {
+            val addFavoriteRestaurantRequest = AddFavoriteRestaurantRequest(args.restaurantId)
+
+            viewModel.addRestaurantToFavorite(addFavoriteRestaurantRequest)
+                .observe(viewLifecycleOwner, {
+                    when (it.status) {
+                        Resource.Status.LOADING -> {
+                        }
+                        Resource.Status.SUCCESS -> {
+                            showErrorToast(requireContext(),"Restaurant added to favorites.")
+                        }
+                        Resource.Status.ERROR -> {
+                            showErrorToast(requireContext(),"Already favorite.")
+                        }
+                    }
+                })
+        }
+    }
+
+    private fun getRestaurantAndSetViews(){
         viewModel.getRestaurantById(args.restaurantId).observe(viewLifecycleOwner, {
             when (it.status) {
 
                 Resource.Status.LOADING -> {
-                    _binding.mainLayout.gone()
-                    _binding.progressBar.show()
+                    setLoading(true)
 
                 }
                 Resource.Status.SUCCESS -> {
-                    _binding.mainLayout.show()
-                    _binding.progressBar.gone()
+                    setLoading(false)
+
                     val restaurant = it.data?.data!!
                     adapter.setMeals(restaurant.meals!!)
                     adapter.setListener(this)
+
                     with(_binding) {
                         restaurantNameTextView.text = restaurant.name
+
                         collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.collapsingToolbarLayoutTitleColor)
                         collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.collapsingToolbarLayoutTitleColor)
-                        mealsRecyclerView.layoutManager =
-                            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                        mealsRecyclerView.adapter = adapter
-                        minimumFeeTextView.text =
-                            String.format("%.2f", restaurant.minimumFee) + " TL"
+
+                        val minimumFeeText = String.format("%.2f", restaurant.minimumFee) + " TL"
+                        minimumFeeTextView.text =minimumFeeText
+
                         deliveryInfoTextView.text = restaurant.deliveryTime
                         restaurantDescriptionTextView.text = restaurant.description
 
@@ -78,39 +108,11 @@ class RestaurantFragment : Fragment(), IMealOnClick {
                     }
                 }
                 Resource.Status.ERROR -> {
-                    _binding.mainLayout.show()
-                    _binding.progressBar.gone()
-                   showErrorToast(requireContext())
+                    setLoading(false)
+                    showErrorToast(requireContext())
                 }
             }
         })
-
-    }
-
-    private fun initListeners() {
-        _binding.backButton.setOnClickListener {
-            findNavController().popBackStack()
-        }
-        _binding.favoriteButton.setOnClickListener {
-            val addFavoriteRestaurantRequest = AddFavoriteRestaurantRequest(args.restaurantId)
-            viewModel.addRestaurantToFavorite(addFavoriteRestaurantRequest)
-                .observe(viewLifecycleOwner, {
-                    when (it.status) {
-
-                        Resource.Status.LOADING -> {
-                            Log.v("Restaurant", "Loading")
-
-                        }
-                        Resource.Status.SUCCESS -> {
-                            Log.v("Restaurant", "Success")
-                        }
-                        Resource.Status.ERROR -> {
-
-                            showErrorToast(requireContext(),"Add favorite restaurant failed.")
-                        }
-                    }
-                })
-        }
     }
 
     override fun onClick(meal: Meal) {
@@ -124,6 +126,19 @@ class RestaurantFragment : Fragment(), IMealOnClick {
     override fun onDestroy() {
         super.onDestroy()
         adapter.removeListeners()
+    }
+
+    private fun setLoading(isLoading: Boolean) {
+        with(_binding) {
+            if (isLoading) {
+                mainLayout.gone()
+                progressBar.show()
+            } else {
+                mainLayout.show()
+                progressBar.gone()
+            }
+        }
+
     }
 
 }

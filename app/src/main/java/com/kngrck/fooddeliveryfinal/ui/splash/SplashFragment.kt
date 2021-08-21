@@ -3,7 +3,6 @@ package com.kngrck.fooddeliveryfinal.ui.splash
 import android.animation.Animator
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,15 +22,14 @@ class SplashFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSplashBinding.inflate(inflater, container, false)
         return _binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        FirebaseAuthManager.initialize(requireContext())
-
+        FirebaseAuthManager.initialize()
 
         _binding.splashAnimation.addAnimatorListener(object : Animator.AnimatorListener {
             override fun onAnimationStart(animation: Animator?) {
@@ -46,16 +44,12 @@ class SplashFragment : Fragment() {
 
             override fun onAnimationRepeat(animation: Animator?) {
             }
-
         })
-
-
     }
 
     private fun checkUserAndLogin() {
         FirebaseAuthManager.getCurrentUser()?.let {
             it.getIdToken(true).addOnCompleteListener { result ->
-                Log.v("Splash","result $result")
                 if (result.isSuccessful) {
                     val accessToken = result.result?.token
                     accessToken?.let {
@@ -64,14 +58,11 @@ class SplashFragment : Fragment() {
                         startActivity(intent)
                         requireActivity().finish()
                     }
-
                 } else {
                     findNavController().navigate(R.id.action_splashFragment_to_onBoardingFragment)
                 }
-
             }
         } ?: run {
-            Log.v("Splash","run")
             findNavController().navigate(R.id.action_splashFragment_to_onBoardingFragment)
         }
     }

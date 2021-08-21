@@ -1,5 +1,6 @@
 package com.kngrck.fooddeliveryfinal.ui.profile
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -15,8 +16,7 @@ import kotlin.collections.ArrayList
 class LastOrdersAdapter : RecyclerView.Adapter<LastOrdersAdapter.LastOrdersViewHolder>() {
     private var orders = ArrayList<Order>()
 
-    inner class LastOrdersViewHolder(val binding: ItemLastOrderBinding) :
-        RecyclerView.ViewHolder(binding.root)
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LastOrdersViewHolder {
         val binding = ItemLastOrderBinding
@@ -40,9 +40,12 @@ class LastOrdersAdapter : RecyclerView.Adapter<LastOrdersAdapter.LastOrdersViewH
                 mealNameTextView.text = order.mealName
                 restaurantNameTextView.text = order.restaurantName
 
-                mealPriceTextView.text =
-                    String.format("%.2f", order.mealPrice * order.count) + " TL"
-                mealCountTextView.text = order.count.toString() + " ad."
+                val mealPriceText = String.format("%.2f", order.mealPrice * order.count) + " TL"
+                mealPriceTextView.text =mealPriceText
+
+                val mealCountText = order.count.toString() + " qty."
+                mealCountTextView.text = mealCountText
+
                 val options = RequestOptions().placeholder(R.drawable.ic_burger)
                 Glide.with(mealImageView.context)
                     .applyDefaultRequestOptions(options)
@@ -52,18 +55,15 @@ class LastOrdersAdapter : RecyclerView.Adapter<LastOrdersAdapter.LastOrdersViewH
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setOrders(orders: ArrayList<Order>) {
         this.orders = orders
         notifyDataSetChanged()
     }
 
-//    fun setListener(listener: IMealOnClick) {
-//        this.listener = listener
-//    }
-//
-//    fun removeListeners() {
-//        this.listener = null
-//    }
 
     override fun getItemCount(): Int = orders.size
+
+    inner class LastOrdersViewHolder(val binding: ItemLastOrderBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }

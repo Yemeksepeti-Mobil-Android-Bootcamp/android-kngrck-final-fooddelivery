@@ -10,10 +10,6 @@ class LoginViewModel @Inject constructor(
     private val apiRepository: ApiRepository
 ) : ViewModel() {
 
-    fun getToken(): String? =
-        apiRepository.getToken()
-
-
     fun saveToken(token: String) {
         apiRepository.saveToken(token)
     }

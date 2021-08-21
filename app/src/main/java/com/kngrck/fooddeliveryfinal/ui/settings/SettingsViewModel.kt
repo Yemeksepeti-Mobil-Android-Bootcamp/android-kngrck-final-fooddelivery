@@ -10,7 +10,6 @@ class SettingsViewModel @Inject constructor(
     private val apiRepository: ApiRepository
 ) : ViewModel() {
 
-
     fun logOut() {
         apiRepository.removeToken()
     }

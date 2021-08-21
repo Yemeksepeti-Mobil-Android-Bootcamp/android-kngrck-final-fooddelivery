@@ -36,7 +36,9 @@ class HomeFragment : Fragment(), IRestaurantOnClick, ICategoryOnClick {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
+        initListeners()
     }
+
 
     private fun initViews() {
         val categories = viewModel.getCategories()
@@ -47,54 +49,64 @@ class HomeFragment : Fragment(), IRestaurantOnClick, ICategoryOnClick {
             categoriesRecyclerView.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             categoriesRecyclerView.adapter = categoriesAdapter
+            restaurantsRecyclerView.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            restaurantsRecyclerView.adapter = restaurantsAdapter
         }
+
+        getAllRestaurantsAndSetViews()
+    }
+
+    private fun initListeners() {
+        _binding.searchView.setOnQueryTextListener(object : OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                val filterList = viewModel.searchRestaurant(query)
+                restaurantsAdapter.setRestaurants(filterList)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                val filterList = viewModel.searchRestaurant(newText)
+                restaurantsAdapter.setRestaurants(filterList)
+                return true
+            }
+
+        })
+    }
+
+    private fun getAllRestaurantsAndSetViews() {
         viewModel.getAllRestaurants().observe(viewLifecycleOwner, {
             when (it.status) {
                 Resource.Status.LOADING -> {
-                    _binding.restaurantsRecyclerView.gone()
-                    _binding.progressBar.show()
+                    setLoading(true)
                 }
                 Resource.Status.SUCCESS -> {
-
-                    _binding.restaurantsRecyclerView.show()
-                    _binding.progressBar.gone()
+                    setLoading(false)
 
                     val restaurants = it.data?.data!!
                     viewModel.restaurantList = restaurants
                     restaurantsAdapter.setRestaurants(restaurants)
                     restaurantsAdapter.setListener(this)
 
-                    _binding.searchView.setOnQueryTextListener(object : OnQueryTextListener {
-                        override fun onQueryTextSubmit(query: String?): Boolean {
-                            val filterList = viewModel.searchRestaurant(query)
-                            restaurantsAdapter.setRestaurants(filterList)
-                            return true
-                        }
-
-                        override fun onQueryTextChange(newText: String?): Boolean {
-                            val filterList = viewModel.searchRestaurant(newText)
-                            restaurantsAdapter.setRestaurants(filterList)
-                            return true
-                        }
-
-                    })
-
-                    with(_binding) {
-                        restaurantsRecyclerView.layoutManager =
-                            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                        restaurantsRecyclerView.adapter = restaurantsAdapter
-                    }
                 }
                 Resource.Status.ERROR -> {
-
-                    _binding.restaurantsRecyclerView.show()
-                    _binding.progressBar.gone()
+                    setLoading(false)
                     showErrorToast(requireContext())
                 }
             }
         })
+    }
 
-
+    private fun setLoading(isLoading: Boolean) {
+        with(_binding) {
+            if (isLoading) {
+                restaurantsRecyclerView.gone()
+                progressBar.show()
+            } else {
+                restaurantsRecyclerView.show()
+                progressBar.gone()
+            }
+        }
     }
 
 
@@ -106,56 +118,24 @@ class HomeFragment : Fragment(), IRestaurantOnClick, ICategoryOnClick {
             viewModel.getRestaurantsByCategory(category.text).observe(viewLifecycleOwner, {
                 when (it.status) {
                     Resource.Status.LOADING -> {
-                        _binding.restaurantsRecyclerView.gone()
-                        _binding.progressBar.show()
+                        setLoading(true)
                     }
                     Resource.Status.SUCCESS -> {
+                        setLoading(false)
 
-                        _binding.restaurantsRecyclerView.show()
-                        _binding.progressBar.gone()
                         val restaurants = it.data?.data!!
                         viewModel.restaurantList = restaurants
                         restaurantsAdapter.setRestaurants(restaurants)
                         restaurantsAdapter.setListener(this)
-
-                        _binding.restaurantsRecyclerView.adapter = restaurantsAdapter
-
                     }
                     Resource.Status.ERROR -> {
-
-                        _binding.restaurantsRecyclerView.show()
-                        _binding.progressBar.gone()
+                        setLoading(false)
                         showErrorToast(requireContext())
                     }
                 }
             })
-        } else {
-            viewModel.getAllRestaurants().observe(viewLifecycleOwner, {
-                when (it.status) {
-                    Resource.Status.LOADING -> {
-                        _binding.restaurantsRecyclerView.gone()
-                        _binding.progressBar.show()
-                    }
-                    Resource.Status.SUCCESS -> {
+        } else getAllRestaurantsAndSetViews()
 
-                        _binding.restaurantsRecyclerView.show()
-                        _binding.progressBar.gone()
-                        val restaurants = it.data?.data!!
-                        restaurantsAdapter.setRestaurants(restaurants)
-                        restaurantsAdapter.setListener(this)
-
-                        _binding.restaurantsRecyclerView.adapter = restaurantsAdapter
-
-                    }
-                    Resource.Status.ERROR -> {
-
-                        _binding.restaurantsRecyclerView.show()
-                        _binding.progressBar.gone()
-                        showErrorToast(requireContext())
-                    }
-                }
-            })
-        }
 
     }
 
@@ -165,6 +145,8 @@ class HomeFragment : Fragment(), IRestaurantOnClick, ICategoryOnClick {
         )
         findNavController().navigate(action)
     }
+
+
 
     override fun onDestroy() {
         super.onDestroy()
