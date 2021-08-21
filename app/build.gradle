@@ -96,9 +96,6 @@ dependencies {
     def lottie_version = "3.7.1"
     implementation "com.airbnb.android:lottie:$lottie_version"
 
-    //JWT Decode
-    implementation 'com.auth0.android:jwtdecode:2.0.0'
-
     //Support design
     implementation 'com.android.support:design:30.0.0'
 
