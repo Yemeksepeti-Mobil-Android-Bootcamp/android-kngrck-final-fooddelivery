@@ -37,12 +37,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
-            android:text="Edit Restaurants"
+            android:text="@string/edit_restaurants_button"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
     </androidx.cardview.widget.CardView>
-
 
 
     <androidx.cardview.widget.CardView
@@ -65,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
-            android:text="Change User Details"
+            android:text="@string/change_user_details_button"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
@@ -91,7 +90,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
-            android:text="Log out"
+            android:text="@string/log_out_button"
             android:textColor="@color/black"
             android:textSize="16sp" />
 

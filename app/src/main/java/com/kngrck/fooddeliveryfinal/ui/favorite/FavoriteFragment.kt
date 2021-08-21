@@ -10,6 +10,9 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kngrck.fooddeliveryfinal.databinding.FragmentFavoriteBinding
 import com.kngrck.fooddeliveryfinal.utils.Resource
+import com.kngrck.fooddeliveryfinal.utils.gone
+import com.kngrck.fooddeliveryfinal.utils.show
+import com.kngrck.fooddeliveryfinal.utils.showErrorToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -45,12 +48,14 @@ class FavoriteFragment : Fragment(), IOnDeleteRestaurant {
                 Resource.Status.SUCCESS -> {
                     Log.v("Favorite", "Success")
                     val favRestaurants = it.data?.data!!
+                    if (favRestaurants.size == 0) _binding.noDataTextView.show()
+                    else _binding.noDataTextView.gone()
                     adapter.setFavRestaurants(favRestaurants)
                     _binding.favRestaurantsRecyclerView.adapter = adapter
                 }
                 Resource.Status.ERROR -> {
 
-                    Log.v("Favorite", "Error")
+                    showErrorToast(requireContext())
                 }
             }
         })
@@ -69,7 +74,7 @@ class FavoriteFragment : Fragment(), IOnDeleteRestaurant {
                     Log.v("Favorite", "Delete Success")
                 }
                 Resource.Status.ERROR -> {
-                    Log.v("Favorite", "Delete Error")
+                    showErrorToast(requireContext(), "Failed to delete restaurant.")
                 }
             }
         })

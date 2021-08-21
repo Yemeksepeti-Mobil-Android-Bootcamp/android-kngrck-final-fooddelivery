@@ -9,7 +9,7 @@
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mainLayout"
@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
-            android:text="Your Cart"
+            android:text="@string/cart_title"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp"
@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
-            android:text="You don't have meal in the cart"
+            android:text="@string/empty_cart_warning"
             android:textAlignment="center"
             android:textSize="16sp"
             android:visibility="gone"
@@ -62,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_medium"
-                android:text="Total: "
+                android:text="@string/total"
                 android:textAlignment="viewEnd"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -71,6 +71,7 @@
                 android:id="@+id/totalTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
                 android:fontFamily="@font/poppins_medium"
                 android:textColor="@color/secondary"
                 android:textSize="16sp"
@@ -85,15 +86,12 @@
             android:layout_marginHorizontal="8dp"
             android:background="@drawable/shape_add_to_cart_button"
             android:fontFamily="@font/poppins_medium"
-            android:text="Order"
+            android:text="@string/order"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-
-            />
-
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

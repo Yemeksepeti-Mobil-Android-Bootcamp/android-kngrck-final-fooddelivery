@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
-            android:text="Foodbasket"
+            android:text="@string/foodbasket"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp"
@@ -47,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
-            android:text="Categories"
+            android:text="@string/home_categories"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -63,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
-            android:text="Restaurants"
+            android:text="@string/home_restaurants"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />

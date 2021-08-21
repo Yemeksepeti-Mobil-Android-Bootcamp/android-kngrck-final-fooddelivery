@@ -16,6 +16,7 @@ import com.kngrck.fooddeliveryfinal.model.entity.order.Order
 import com.kngrck.fooddeliveryfinal.utils.Resource
 import com.kngrck.fooddeliveryfinal.utils.gone
 import com.kngrck.fooddeliveryfinal.utils.show
+import com.kngrck.fooddeliveryfinal.utils.showErrorToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -82,9 +83,10 @@ class CartFragment : Fragment(), ICountChangeListener {
                     }
                 }
                 Resource.Status.ERROR -> {
-                    Log.v("Cart", "error ${it.message}")
+
                     _binding.mainLayout.show()
                     _binding.progressBar.gone()
+                    showErrorToast(requireContext())
                 }
             }
         })
@@ -105,9 +107,10 @@ class CartFragment : Fragment(), ICountChangeListener {
                     findNavController().navigate(R.id.action_cartFragment_to_homeFragment)
                 }
                 Resource.Status.ERROR -> {
-                    Log.v("Cart", "error ${it.message}")
+
                     _binding.mainLayout.show()
                     _binding.progressBar.gone()
+                    showErrorToast(requireContext(), "Failed order operation.")
                 }
             }
         })
@@ -143,10 +146,12 @@ class CartFragment : Fragment(), ICountChangeListener {
 
                         }
 
-                        Log.v("Cart", "success ")
                     }
                     Resource.Status.ERROR -> {
-                        Log.v("Cart", "error ${it}")
+                        showErrorToast(
+                            requireContext(),
+                            "Failed to delete order.Please try again later."
+                        )
 
                     }
                 }
@@ -158,15 +163,16 @@ class CartFragment : Fragment(), ICountChangeListener {
                     {
                         when (it.status) {
                             Resource.Status.LOADING -> {
-                                Log.v("Cart", "loading ")
                             }
                             Resource.Status.SUCCESS -> {
                                 _binding.totalTextView.text =
                                     String.format("%.2f", getTotal()) + " TL"
-                                Log.v("Cart", "success ")
                             }
                             Resource.Status.ERROR -> {
-                                Log.v("Cart", "error $it")
+                                showErrorToast(
+                                    requireContext(),
+                                    "Failed to change quantity.Please try again later."
+                                )
 
                             }
                         }

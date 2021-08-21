@@ -32,7 +32,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
-            android:text="New Meal"
+            android:text="@string/add_meal_title"
             android:textAllCaps="false"
             android:textColor="@color/black"
             android:textSize="20sp"
@@ -66,7 +66,7 @@
                         android:layout_marginHorizontal="8dp"
                         android:layout_marginVertical="16dp"
                         android:background="@drawable/shape_text_field"
-                        android:hint="Meal Name"
+                        android:hint="@string/text_input_meal_name"
                         android:inputType="text"
                         android:textColor="@color/black"
                         android:textColorHint="@color/black" />
@@ -85,7 +85,7 @@
                         android:layout_marginHorizontal="8dp"
                         android:layout_marginVertical="16dp"
                         android:background="@drawable/shape_text_field"
-                        android:hint="Details"
+                        android:hint="@string/text_input_details"
                         android:inputType="text"
                         android:textColor="@color/black"
                         android:textColorHint="@color/black" />
@@ -105,7 +105,7 @@
                         android:layout_marginHorizontal="8dp"
                         android:layout_marginVertical="16dp"
                         android:background="@drawable/shape_text_field"
-                        android:hint="Price"
+                        android:hint="@string/text_input_price"
                         android:inputType="numberDecimal"
                         android:textColor="@color/black"
                         android:textColorHint="@color/black" />
@@ -124,7 +124,7 @@
                         android:layout_marginHorizontal="8dp"
                         android:layout_marginVertical="16dp"
                         android:background="@drawable/shape_text_field"
-                        android:hint="Meal Image as url"
+                        android:hint="@string/text_input_image"
                         android:inputType="text"
                         android:textColor="@color/black"
                         android:textColorHint="@color/black" />
@@ -148,7 +148,7 @@
                         android:layout_marginHorizontal="8dp"
                         android:background="@drawable/shape_text_field"
 
-                        android:hint="Ingredient"
+                        android:hint="@string/text_input_ingredient"
                         android:inputType="text"
                         android:textColor="@color/black"
                         android:textColorHint="@color/black" />
@@ -167,7 +167,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/shape_signup_button"
             android:fontFamily="@font/poppins_medium"
-            android:text="Apply Changes"
+            android:text="@string/add_meal_button"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="16sp"

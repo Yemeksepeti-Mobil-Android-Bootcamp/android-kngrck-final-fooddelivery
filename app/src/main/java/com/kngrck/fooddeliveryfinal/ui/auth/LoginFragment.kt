@@ -2,17 +2,16 @@ package com.kngrck.fooddeliveryfinal.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kngrck.fooddeliveryfinal.databinding.FragmentLoginBinding
 import com.kngrck.fooddeliveryfinal.ui.MainActivity
 import com.kngrck.fooddeliveryfinal.utils.AuthListener
 import com.kngrck.fooddeliveryfinal.utils.FirebaseAuthManager
+import com.kngrck.fooddeliveryfinal.utils.showErrorToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -39,11 +38,10 @@ class LoginFragment : BottomSheetDialogFragment() {
             val password = _binding.passwordTextInput.editText?.text.toString()
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
-                 _binding.emailTextInput.error = ""
-                 _binding.passwordTextInput.error = ""
+                _binding.emailTextInput.error = ""
+                _binding.passwordTextInput.error = ""
                 FirebaseAuthManager.signIn(email, password, object : AuthListener {
                     override fun isAuthSuccess(success: Boolean) {
-                        Log.d("LOGIN","success $success")
                         if (success) {
                             FirebaseAuthManager.getCurrentUser()?.getIdToken(true)
                                 ?.addOnCompleteListener { result ->
@@ -56,12 +54,12 @@ class LoginFragment : BottomSheetDialogFragment() {
                                             requireActivity().finish()
                                         }
                                     } else {
-                                        Toast.makeText(context, "Login failed", Toast.LENGTH_SHORT).show()
+                                        showErrorToast(requireContext(), "Login Failed")
                                     }
                                 }
 
                         } else {
-                            Toast.makeText(context, "Login failed", Toast.LENGTH_SHORT).show()
+                            showErrorToast(requireContext(), "Login failed")
                         }
                     }
 

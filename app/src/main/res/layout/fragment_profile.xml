@@ -46,7 +46,7 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_marginTop="16dp"
-                        android:layout_marginRight="16dp"
+                        android:layout_marginEnd="16dp"
                         android:background="@null"
                         android:src="@drawable/ic_settings"
                         android:tint="@color/white"
@@ -80,9 +80,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="16dp"
                             android:fontFamily="@font/poppins_medium"
-                            android:text="Kaan Girçek"
                             android:textColor="@color/white"
-                            android:textSize="20sp" />
+                            android:textSize="20sp"
+                            tools:text="Kaan Gircek" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/userMail"
@@ -91,9 +91,9 @@
                             android:layout_marginHorizontal="16dp"
                             android:layout_marginTop="8dp"
                             android:fontFamily="@font/poppins_medium"
-                            android:text="kaandokan@hotmail.com"
                             android:textColor="@color/white"
-                            android:textSize="14sp" />
+                            android:textSize="14sp"
+                            tools:text="kaandokan@hotmail.com" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/userPhone"
@@ -101,9 +101,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="16dp"
                             android:fontFamily="@font/poppins_medium"
-                            android:text="05394487777"
                             android:textColor="@color/white"
-                            android:textSize="14sp" />
+                            android:textSize="14sp"
+                            tools:text="05394487777" />
 
 
                     </LinearLayout>
@@ -134,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="16dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="Last Orders"
+                android:text="@string/last_orders"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
