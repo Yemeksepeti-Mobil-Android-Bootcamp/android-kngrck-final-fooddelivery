@@ -58,6 +58,10 @@ class AddMealFragment : Fragment() {
             applyButton.setOnClickListener {
                 checkInputsAndAddMeal()
             }
+
+            backButton.setOnClickListener {
+                findNavController().popBackStack()
+            }
         }
 
     }

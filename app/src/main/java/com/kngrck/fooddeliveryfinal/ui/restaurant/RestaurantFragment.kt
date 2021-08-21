@@ -64,9 +64,10 @@ class RestaurantFragment : Fragment(), IMealOnClick {
                         Resource.Status.LOADING -> {
                         }
                         Resource.Status.SUCCESS -> {
+                            showErrorToast(requireContext(),"Restaurant added to favorites.")
                         }
                         Resource.Status.ERROR -> {
-                            showErrorToast(requireContext(),"Add favorite restaurant failed.")
+                            showErrorToast(requireContext(),"Already favorite.")
                         }
                     }
                 })

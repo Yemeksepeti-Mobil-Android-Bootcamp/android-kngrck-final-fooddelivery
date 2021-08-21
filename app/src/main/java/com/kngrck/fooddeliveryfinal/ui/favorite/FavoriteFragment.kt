@@ -75,6 +75,7 @@ class FavoriteFragment : Fragment(), IOnDeleteRestaurant {
                 Resource.Status.LOADING -> {
                 }
                 Resource.Status.SUCCESS -> {
+                    getFavRestaurantAndSetViews()
                 }
                 Resource.Status.ERROR -> {
                     showErrorToast(requireContext(), "Failed to delete restaurant.")

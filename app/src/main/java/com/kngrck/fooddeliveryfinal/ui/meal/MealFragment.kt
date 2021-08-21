@@ -60,6 +60,10 @@ class MealFragment : Fragment() {
         _binding.addToCartButton.setOnClickListener {
             addToCartAndNavigateToHome()
         }
+
+        _binding.backButton.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     private fun addToCartAndNavigateToHome() {

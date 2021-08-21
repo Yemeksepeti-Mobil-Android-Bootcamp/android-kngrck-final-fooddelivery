@@ -21,8 +21,9 @@
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/backButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:scaleType="fitCenter"
             android:background="@null"
             android:src="@drawable/ic_back"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -33,6 +34,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
             android:text="@string/new_restaurant_title"
+            android:layout_marginStart="8dp"
             android:textAllCaps="false"
             android:textColor="@color/black"
             android:textSize="20sp"

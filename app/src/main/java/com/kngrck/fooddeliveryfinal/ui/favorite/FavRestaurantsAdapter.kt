@@ -3,6 +3,7 @@ package com.kngrck.fooddeliveryfinal.ui.favorite
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.kngrck.fooddeliveryfinal.databinding.ItemFavRestaurantBinding
 import com.kngrck.fooddeliveryfinal.model.entity.restaurant.Restaurant
@@ -33,6 +34,13 @@ class FavRestaurantsAdapter :
                 minimumTextView.text = minimumFeeText
 
                 deliveryTimeTextView.text = restaurant.deliveryTime
+
+                restaurantItemCardView.setOnClickListener {
+                    val action = FavoriteFragmentDirections.actionFavoriteFragmentToRestaurantFragment(
+                        restaurant.id
+                    )
+                    it.findNavController().navigate(action)
+                }
 
                 deleteFavoriteButton.setOnClickListener {
                     favRestaurants.remove(restaurant)
